@@ -1,0 +1,26 @@
+# Untuk hosting Apache/LiteSpeed (cPanel, hPanel, DirectAdmin)
+
+# Paksa HTTPS (aktifkan setelah SSL terpasang)
+RewriteEngine On
+RewriteCond %{HTTPS} off
+RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+
+# Jangan tampilkan isi folder
+Options -Indexes
+
+# Cache foto, lagu & font agar undangan cepat dibuka ulang
+<IfModule mod_expires.c>
+  ExpiresActive On
+  ExpiresByType image/jpeg "access plus 30 days"
+  ExpiresByType image/webp "access plus 30 days"
+  ExpiresByType image/png  "access plus 30 days"
+  ExpiresByType image/svg+xml "access plus 30 days"
+  ExpiresByType audio/mpeg "access plus 30 days"
+  ExpiresByType text/css "access plus 1 hour"
+  ExpiresByType application/javascript "access plus 1 hour"
+</IfModule>
+
+# Kompres teks
+<IfModule mod_deflate.c>
+  AddOutputFilterByType DEFLATE text/html text/css application/javascript image/svg+xml
+</IfModule>

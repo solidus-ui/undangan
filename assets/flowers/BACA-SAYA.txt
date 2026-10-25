@@ -1,0 +1,3 @@
+Opsional: jika ingin memakai gambar bunga sendiri (PNG/WebP transparan),
+taruh di sini sebagai corner.png (rangkaian pojok, mengarah ke kanan-bawah dari pojok kiri-atas)
+dan divider.png (pembatas horizontal), lalu set theme.flowerStyle = "gambar" di js/config.js.

@@ -1,0 +1,154 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Undangan Pernikahan</title>
+  <meta name="description" content="Undangan pernikahan digital">
+  <meta name="robots" content="noindex, nofollow">
+  <!-- Pratinjau saat link dibagikan di WhatsApp: ganti dengan foto & judul Anda -->
+  <meta property="og:title" content="The Wedding of Taufik & Niken">
+  <meta property="og:description" content="Kami mengundang Anda untuk hadir di hari bahagia kami.">
+  <meta property="og:image" content="https://solidus-ui.github.io/undangan/assets/img/og-image.jpg">
+  <meta property="og:url" content="https://solidus-ui.github.io/undangan/">
+  <meta property="og:type" content="website">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link id="gfonts" rel="stylesheet" href="">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="locked">
+
+  <!-- ================= COVER / PEMBUKA ================= -->
+  <section id="cover" class="cover">
+    <div class="cover-bg" data-img="cover"></div>
+    <div class="flower corner tl" data-flower="corner"></div>
+    <div class="flower corner br" data-flower="corner"></div>
+    <div class="cover-band" aria-hidden="true"></div>
+    <div class="cover-inner">
+      <p class="eyebrow">The Wedding of</p>
+      <h1 class="script" data-text="couple.shortTitle"></h1>
+      <p class="cover-date" id="coverDate"></p>
+      <p class="cover-quote" data-text="texts.coverQuote"></p>
+      <div class="guest-box">
+        <p class="small" data-text="texts.guestPrefix"></p>
+        <p class="guest-name" id="guestName"></p>
+      </div>
+      <button id="openBtn" class="btn">
+        <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path fill="currentColor" d="M20 4H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2Zm0 4-8 5-8-5V6l8 5 8-5Z"/></svg>
+        Buka Undangan
+      </button>
+    </div>
+  </section>
+
+  <main id="main">
+
+    <!-- ================= HERO ================= -->
+    <section class="hero">
+      <div class="hero-photo reveal a-settle" data-img="hero"></div>
+      <div class="hero-text reveal">
+        <p class="eyebrow">Save the Date</p>
+        <h2 class="script" data-text="couple.shortTitle"></h2>
+        <p id="heroDate"></p>
+      </div>
+    </section>
+
+    <!-- ================= SALAM & MEMPELAI ================= -->
+    <section class="section" id="couple">
+      <h3 class="heading reveal" data-text="texts.greeting"></h3>
+      <p class="lead reveal" data-text="texts.intro"></p>
+      <div class="couple-wrap" id="coupleWrap"></div>
+    </section>
+
+    <!-- ================= AYAT ================= -->
+    <section class="section alt verse reveal">
+      <div class="flower divider" data-flower="divider"></div>
+      <p class="quote" data-text="texts.verse"></p>
+      <p class="small strong" data-text="texts.verseSource"></p>
+    </section>
+
+    <!-- ================= KISAH ================= -->
+    <section class="section" id="story">
+      <h3 class="heading script-h reveal">Love Story</h3>
+      <div class="timeline" id="storyList"></div>
+    </section>
+
+    <!-- ================= ACARA & COUNTDOWN ================= -->
+    <section class="section alt" id="event">
+      <h3 class="heading script-h reveal">Hari Bahagia</h3>
+      <div class="countdown reveal" id="countdown">
+        <div><b id="cdD">0</b><span>Hari</span></div>
+        <div><b id="cdH">0</b><span>Jam</span></div>
+        <div><b id="cdM">0</b><span>Menit</span></div>
+        <div><b id="cdS">0</b><span>Detik</span></div>
+      </div>
+      <p class="lead reveal" data-text="texts.eventsIntro"></p>
+      <div class="events" id="eventList"></div>
+    </section>
+
+    <!-- ================= GALERI ================= -->
+    <section class="section" id="gallery">
+      <h3 class="heading script-h reveal">Galeri</h3>
+      <div class="flower divider" data-flower="divider"></div>
+      <div class="gallery" id="galleryGrid"></div>
+    </section>
+
+    <!-- ================= AMPLOP DIGITAL ================= -->
+    <section class="section alt" id="gift">
+      <h3 class="heading script-h reveal">Amplop Digital</h3>
+      <p class="lead reveal">Doa restu Anda adalah hadiah terindah. Jika ingin memberi tanda kasih, dapat melalui:</p>
+      <div class="gifts" id="giftList"></div>
+      <div class="card reveal" id="giftAddress" hidden></div>
+    </section>
+
+    <!-- ================= RSVP & UCAPAN ================= -->
+    <section class="section" id="rsvp">
+      <h3 class="heading script-h reveal">Ucapan & Doa</h3>
+      <div class="stats" id="rsvpStats"></div>
+      <form class="card form reveal" id="rsvpForm">
+        <label>Nama<input name="nama" id="fNama" required maxlength="60"></label>
+        <label>Ucapan & doa<textarea name="ucapan" required maxlength="500" rows="3"></textarea></label>
+        <label>Konfirmasi kehadiran
+          <select name="hadir" required>
+            <option value="">— pilih —</option>
+            <option>Hadir</option>
+            <option>Tidak Hadir</option>
+            <option>Masih Ragu</option>
+          </select>
+        </label>
+        <label>Jumlah tamu<select name="jumlah"><option>1</option><option>2</option><option>3</option><option>4</option></select></label>
+        <button class="btn" type="submit">Kirim</button>
+        <p class="small" id="formMsg" role="status"></p>
+      </form>
+      <ul class="wishes" id="wishList"></ul>
+    </section>
+
+    <!-- ================= PENUTUP ================= -->
+    <section class="closing">
+      <div class="closing-photo reveal a-settle" data-img="closing"></div>
+      <div class="closing-text reveal">
+        <p data-text="texts.closing"></p>
+        <h3 class="heading" data-text="texts.farewell"></h3>
+        <p class="small signoff" data-text="texts.signoff"></p>
+        <h2 class="script" data-text="couple.shortTitle"></h2>
+        <p class="small families" data-text="texts.families"></p>
+      </div>
+    </section>
+    <footer class="footer small">Dibuat dengan ♥ untuk hari bahagia kami</footer>
+  </main>
+
+  <!-- Tombol musik -->
+  <button id="musicBtn" class="music-btn" aria-label="Putar/hentikan musik" hidden>
+    <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path fill="currentColor" d="M12 3v10.55A4 4 0 1 0 14 17V7h4V3h-6Z"/></svg>
+  </button>
+  <audio id="bgm" loop preload="none"></audio>
+
+  <!-- Lightbox galeri -->
+  <div id="lightbox" class="lightbox" hidden><img alt=""><button aria-label="Tutup">×</button></div>
+
+  <script src="js/config.js"></script>
+  <script src="js/flowers-boho.js"></script>
+  <script src="js/flowers.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>

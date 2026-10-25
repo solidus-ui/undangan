@@ -1,0 +1,3 @@
+Taruh file lagu latar Anda di folder ini dengan nama  lagu.mp3
+(atau ganti nama file di js/config.js -> music.src).
+Saran: MP3 128 kbps, ukuran < 5 MB agar cepat dimuat di HP.
