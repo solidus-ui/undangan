@@ -138,7 +138,9 @@ window.INVITATION = {
     petalDark: "#7e2a3a",   // maroon (mawar, tongkol anthurium)
     cream:     "#eee0c8",   // cream (pampas, anthurium, palem)
     leaf:      "#6b7558",   // hijau sage lembut (monstera)
-    flowerStyle: "boho",    // "boho" | "mawar" | "peony" | "melati" | "daun" | "gambar"
+    flowerStyle: "garden",  // "garden" | "boho" | "mawar" | "peony" | "melati" | "daun" | "gambar"
+    bloomPink: "#e8a1b0",   // pink peony & mawar (gaya garden)
+    leafMauve: "#b8928c",   // daun mauve (gaya garden)
     flowerSize: 1,       // skala ukuran ornamen (0.6 – 1.6)
     flowerSway: false,      // true = bunga bergoyang pelan
     fontTitle: "Pinyon Script",
