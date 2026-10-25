@@ -113,13 +113,16 @@ window.INVITATION = {
 
   /* ---------- AMPLOP DIGITAL (hapus isi array untuk menyembunyikan) ---------- */
   gifts: [
-    { bank: "BCA", number: "1234567890", holder: "Taufik [Nama Lengkap]" }
+    { bank: "Bank Mandiri", logo: "assets/img/bank-mandiri.png", number: "1740002850261", holder: "M TAUFIK APRINANDA" },
+    { bank: "Bank Mandiri", logo: "assets/img/bank-mandiri.png", number: "1190012288351", holder: "NIKEN WIDOWATI" }
   ],
-  giftAddress: "",
-  showGifts: false,                         // true jika ingin menampilkan amplop digital                          // alamat kirim kado fisik (opsional)
+  giftText: "Doa restu Anda merupakan karunia yang sangat berarti bagi kami. Dan jika memberi adalah ungkapan tanda kasih, Anda dapat memberi kado secara cashless.",
+  giftAddress: "",                          // kosong = bagian kirim kado ke alamat tidak ditampilkan
+  showGifts: true,
 
   /* ---------- RSVP & UCAPAN (Google Apps Script) ----------
-     Tempel URL Web App dari apps-script/Code.gs di sini. Kosong = form ucapan disembunyikan. */
+     Tempel URL Web App dari apps-script/Code.gs di sini (lihat PANDUAN.md bagian 3).
+     Selama masih kosong, form tetap tampil tetapi ucapan belum tersimpan ke server. */
   appsScriptUrl: "",
 
   /* ---------- TEMA: WARNA & BUNGA ----------

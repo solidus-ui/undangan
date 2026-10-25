@@ -17,6 +17,7 @@
     const r = document.documentElement.style;
     r.setProperty('--primary', t.primary); r.setProperty('--accent', t.accent);
     r.setProperty('--bg', t.background); r.setProperty('--surface', t.surface); r.setProperty('--text', t.text);
+    r.setProperty('--petal', t.petal); r.setProperty('--petal-dark', t.petalDark);
     r.setProperty('--f-title', `"${t.fontTitle}", cursive`);
     r.setProperty('--f-head', `"${t.fontHeading}", serif`);
     r.setProperty('--f-body', `"${t.fontBody}", sans-serif`);
@@ -103,49 +104,89 @@
   } else $('#gallery').remove();
 
   /* Amplop digital */
+  const CHIP = '<svg class="chip" viewBox="0 0 48 36" aria-hidden="true"><rect x="1" y="1" width="46" height="34" rx="6" fill="#e3c27a" stroke="#b8923f"/><path d="M1 12h14M1 24h14M33 12h14M33 24h14M15 1v34M33 1v34M15 18h18" stroke="#b8923f" stroke-width="1.4" fill="none"/></svg>';
+  const fmtNum = (n) => String(n).replace(/\s/g, '').replace(/(\d{4})(?=\d)/g, '$1 ');
   if (C.showGifts !== false && C.gifts && C.gifts.length) {
-    $('#giftList').innerHTML = C.gifts.map((g) => `<div class="card gift reveal"><p class="bank">${esc(g.bank)}</p>
-      <p class="num">${esc(g.number)}</p><p class="small">a.n. ${esc(g.holder)}</p>
-      <button class="btn ghost" data-copy="${esc(g.number)}" style="margin-top:.6rem">Salin Nomor</button></div>`).join('');
+    $('#giftList').innerHTML = C.gifts.map((g) => `<div class="bank-card">
+        <div class="bank-top">${CHIP}${g.logo ? `<img class="bank-logo" src="${esc(g.logo)}" alt="${esc(g.bank)}">` : `<span class="bank-name">${esc(g.bank)}</span>`}</div>
+        <p class="bank-num">${esc(fmtNum(g.number))}</p>
+        <div class="bank-bottom"><span class="bank-holder">${esc(g.holder)}</span>
+          <button class="copy-btn" type="button" data-copy="${esc(String(g.number).replace(/\s/g, ''))}" aria-label="Salin nomor rekening ${esc(g.holder)}">
+            <svg viewBox="0 0 24 24" width="15" height="15" aria-hidden="true"><path fill="currentColor" d="M16 1H6a2 2 0 0 0-2 2v12h2V3h10V1Zm3 4H10a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h9a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2Zm0 16h-9V7h9v14Z"/></svg><span>Salin</span></button>
+        </div></div>`).join('');
+    $('#giftToggle').addEventListener('click', (ev) => {
+      const list = $('#giftList'), open = list.hidden;
+      list.hidden = !open; ev.currentTarget.setAttribute('aria-expanded', String(open));
+      if (open) list.querySelectorAll('.bank-card').forEach((c, i) => { c.style.animationDelay = i * 0.12 + 's'; c.classList.add('pop'); });
+    });
     $('#giftList').addEventListener('click', (ev) => {
       const b = ev.target.closest('[data-copy]'); if (!b) return;
-      navigator.clipboard.writeText(b.dataset.copy).then(() => { b.textContent = 'Tersalin ✓'; setTimeout(() => (b.textContent = 'Salin Nomor'), 1800); });
+      const label = b.querySelector('span');
+      const done = (t) => { label.textContent = t; setTimeout(() => { label.textContent = 'Salin'; }, 1800); };
+      const fallback = () => { const t = document.createElement('textarea'); t.value = b.dataset.copy; document.body.appendChild(t); t.select(); try { document.execCommand('copy'); done('Tersalin ✓'); } catch (e) { done(b.dataset.copy); } t.remove(); };
+      if (navigator.clipboard) navigator.clipboard.writeText(b.dataset.copy).then(() => done('Tersalin ✓'), fallback); else fallback();
     });
     if (C.giftAddress) { const ga = $('#giftAddress'); ga.hidden = false; ga.innerHTML = `<p class="strong">Kirim Kado</p><p class="small">${esc(C.giftAddress)}</p>`; }
   } else $('#gift').remove();
 
-  /* RSVP & ucapan via Google Apps Script */
-  const api = C.appsScriptUrl;
-  if (!api) { $('#rsvp').remove(); }
-  else {
-    loadWishes();
-    $('#rsvpForm').addEventListener('submit', async (ev) => {
-      ev.preventDefault();
-      const fd = Object.fromEntries(new FormData(ev.target));
-      fd.action = 'rsvp'; fd.acara = eventCode || 'semua'; fd.tamuLink = guest;
-      const btn = ev.target.querySelector('button'); btn.disabled = true;
-      $('#formMsg').textContent = 'Mengirim…';
-      try {
-        // text/plain menghindari preflight CORS di Apps Script
-        await fetch(api, { method: 'POST', body: JSON.stringify(fd), headers: { 'Content-Type': 'text/plain;charset=utf-8' } });
-        $('#formMsg').textContent = 'Terima kasih atas ucapan dan doanya!';
-        ev.target.querySelector('textarea').value = '';
-        loadWishes();
-      } catch (e) { $('#formMsg').textContent = 'Gagal mengirim, coba lagi.'; }
-      btn.disabled = false;
-    });
+  /* ---------- Ucapan & RSVP (disimpan ke Google Sheet lewat Apps Script) ---------- */
+  const api = (C.appsScriptUrl || '').trim();
+  const PAGE = 10; let wishes = [], shown = PAGE;
+  const AVATAR = '<span class="avatar" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="12" cy="8.5" r="4.2" fill="currentColor"/><path d="M3.8 21a8.2 8.2 0 0 1 16.4 0Z" fill="currentColor"/></svg></span>';
+  function renderWishes() {
+    $('#cntHadir').textContent = wishes.filter((w) => w.hadir === 'Hadir').length;
+    $('#cntTidak').textContent = wishes.filter((w) => w.hadir === 'Tidak Hadir').length;
+    $('#wishList').innerHTML = wishes.length
+      ? wishes.slice(0, shown).map((w) => `<li>${AVATAR}<div><p class="who">${esc(w.nama)}${w.hadir ? ` <span class="tag ${w.hadir === 'Hadir' ? 'yes' : 'no'}">${esc(w.hadir)}</span>` : ''}</p><p class="meta">${esc(w.waktu)}</p><p class="msg">${esc(w.ucapan)}</p></div></li>`).join('')
+      : '<li class="empty">Belum ada ucapan. Jadilah yang pertama memberikan doa restu.</li>';
+    $('#wishMore').hidden = wishes.length <= shown;
   }
   async function loadWishes() {
+    if (!api) { renderWishes(); return; }
     try {
-      const res = await fetch(api + '?action=wishes');
+      const res = await fetch(api + '?action=wishes', { cache: 'no-store' });
       const data = await res.json();
-      const list = data.wishes || [];
-      const h = list.filter((w) => w.hadir === 'Hadir').length;
-      const t = list.filter((w) => w.hadir === 'Tidak Hadir').length;
-      $('#rsvpStats').innerHTML = `<span>${h} Hadir</span><span>${t} Tidak Hadir</span>`;
-      $('#wishList').innerHTML = list.map((w) => `<li><p class="who">${esc(w.nama)}</p><p class="meta">${esc(w.hadir)} · ${esc(w.waktu)}</p><p>${esc(w.ucapan)}</p></li>`).join('');
-    } catch (e) { /* abaikan jika gagal memuat */ }
+      wishes = Array.isArray(data.wishes) ? data.wishes : [];
+    } catch (e) { /* jaringan gagal: biarkan daftar lama */ }
+    renderWishes();
   }
+  $('#wishMore').addEventListener('click', () => { shown += PAGE; renderWishes(); });
+  $('#rsvpForm').addEventListener('submit', async (ev) => {
+    ev.preventDefault();
+    const form = ev.target, msg = $('#formMsg');
+    const fd = Object.fromEntries(new FormData(form));
+    fd.nama = (fd.nama || '').trim(); fd.ucapan = (fd.ucapan || '').trim();
+    if (!fd.nama) { msg.textContent = 'Mohon isi nama Anda.'; msg.className = 'form-msg err'; $('#fNama').focus(); return; }
+    if (!fd.ucapan) { msg.textContent = 'Mohon tulis ucapan dan doa Anda.'; msg.className = 'form-msg err'; $('#fUcapan').focus(); return; }
+    if (!fd.hadir) { msg.textContent = 'Mohon pilih Hadir atau Tidak Hadir.'; msg.className = 'form-msg err'; return; }
+    fd.action = 'rsvp'; fd.acara = eventCode || 'semua'; fd.tamuLink = guest; fd.jumlah = 1;
+    const btn = form.querySelector('.send'); btn.disabled = true;
+    msg.textContent = 'Mengirim…'; msg.className = 'form-msg';
+    const now = new Date();
+    const entry = { nama: fd.nama, hadir: fd.hadir, ucapan: fd.ucapan,
+      waktu: now.toLocaleDateString('id-ID', { day: '2-digit', month: '2-digit', year: 'numeric' }).replace(/\//g, '-') + ' ' + now.toTimeString().slice(0, 5) };
+    if (!api) {
+      // Belum terhubung ke Google Sheet: tampilkan di layar ini saja (tidak tersimpan permanen).
+      wishes.unshift(entry); renderWishes();
+      msg.textContent = 'Terima kasih! (Mode uji: ucapan belum tersimpan, appsScriptUrl belum diisi.)'; msg.className = 'form-msg ok';
+    } else {
+      try {
+        // Content-Type text/plain menghindari preflight CORS di Apps Script
+        const res = await fetch(api, { method: 'POST', body: JSON.stringify(fd), headers: { 'Content-Type': 'text/plain;charset=utf-8' } });
+        const out = await res.json().catch(() => ({ ok: true }));
+        if (out.error) throw new Error(out.error);
+        wishes.unshift(entry); renderWishes();
+        msg.textContent = 'Terima kasih atas ucapan dan doa restunya!'; msg.className = 'form-msg ok';
+        $('#fUcapan').value = ''; form.querySelectorAll('input[name=hadir]').forEach((r) => { r.checked = false; });
+        setTimeout(loadWishes, 1500);
+      } catch (e) {
+        msg.textContent = (e && e.message && e.message !== 'Failed to fetch') ? e.message : 'Gagal mengirim. Periksa koneksi lalu coba lagi.'; msg.className = 'form-msg err';
+      }
+    }
+    btn.disabled = false;
+  });
+  loadWishes();
+  if (api) setInterval(loadWishes, 60000);
 
   /* ---------- Musik ---------- */
   const audio = $('#bgm'), mbtn = $('#musicBtn');
@@ -193,7 +234,7 @@
   anim('.timeline .item', 'a-left', true);
   anim('.event', 'a-up', true);
   document.querySelectorAll('.gallery img').forEach((el, i) => { el.classList.add('a-zoom'); el.style.transitionDelay = (i % 2) * 0.12 + 's'; });
-  anim('.gift, #rsvpForm', 'a-up');
+  anim('#giftToggle, #rsvpForm, .rsvp-sub, .stats', 'a-up');
   document.querySelectorAll('.reveal').forEach((el) => io.observe(el));
 
   /* Bunga mekar saat bagiannya digulir ke layar */
