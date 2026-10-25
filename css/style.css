@@ -245,3 +245,10 @@ body.no-sway .corner > * { animation: none; }
 .person .person-photo { width: 190px; height: 250px; border-radius: 100px 100px 16px 16px; margin: 0 auto 1rem; border: 4px solid var(--surface); box-shadow: 0 8px 24px rgba(0,0,0,.12); max-width: 100%; }
 .gallery .gi { width: 100%; aspect-ratio: 3/4; border-radius: 12px; cursor: zoom-in; background-position: center 72%; max-width: 100%; }
 .gallery .gi:nth-child(3n+1), .gallery .gi:last-child:nth-child(3n+2) { grid-column: span 2; aspect-ratio: 4/3; }
+
+/* footer: Made with love by Solidus Works */
+.footer { display: flex; align-items: center; justify-content: center; gap: .4rem; font-size: .85rem; letter-spacing: .03em; padding: 1.1rem 1rem calc(1.1rem + env(safe-area-inset-bottom, 0px)); }
+.footer b { font-weight: 600; letter-spacing: .06em; }
+.footer .heart { color: color-mix(in srgb, var(--petal) 70%, #ff6b81); animation: beat 1.6s ease-in-out infinite; }
+@keyframes beat { 0%, 100% { transform: scale(1); } 15% { transform: scale(1.22); } 30% { transform: scale(1); } 45% { transform: scale(1.14); } }
+@media (prefers-reduced-motion: reduce) { .footer .heart { animation: none; } }
