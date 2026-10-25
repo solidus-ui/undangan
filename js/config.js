@@ -125,6 +125,10 @@ window.INVITATION = {
      Selama masih kosong, form tetap tampil tetapi ucapan belum tersimpan ke server. */
   appsScriptUrl: "",
 
+  /* ---------- EDITOR → GITHUB ----------
+     Tombol "Simpan ke GitHub" di mode ?edit=1 menulis js/overrides.js ke repo ini. */
+  editor: { repo: "solidus-ui/undangan", branch: "main", file: "js/overrides.js" },
+
   /* ---------- TEMA: WARNA & BUNGA ----------
      flowerStyle: "mawar" | "peony" | "melati" | "daun" | "gambar"
      "gambar" = pakai file PNG/WebP Anda sendiri di flowerImages. */

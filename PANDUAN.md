@@ -146,3 +146,22 @@ versi lama, minta mereka refresh; cache JS/CSS hanya 1 jam.
 - [ ] Tombol Lihat Lokasi membuka Google Maps yang benar
 - [ ] Kirim satu ucapan percobaan → muncul di tab **Ucapan** dan di undangan, lalu hapus barisnya
 - [ ] Pratinjau link di WhatsApp menampilkan foto & judul
+
+
+## 7. Editor foto & simpan langsung ke GitHub
+
+Buka **https://solidus-ui.github.io/undangan/?edit=1** (tamu tidak melihat editor ini).
+
+- **🎨 Desain**: warna, gaya & ukuran bunga, font.
+- **📷 Foto**: klik foto mana pun → atur **zoom** (slider, tombol −/+, atau scroll mouse) dan **seret** foto untuk menggeser posisinya. Untuk foto cover, klik **Tampilkan cover** dulu. **Reset foto ini** mengembalikan posisi awal.
+- **💾 Simpan**: isi token GitHub, klik **Simpan ke GitHub**. Hasilnya ditulis ke `js/overrides.js` di repo dan situs diperbarui ±1–2 menit kemudian.
+
+### Membuat token GitHub (sekali saja)
+1. Login GitHub sebagai **solidus-ui** → buka https://github.com/settings/personal-access-tokens/new
+2. *Token name*: `editor-undangan`, *Expiration*: misalnya 90 hari.
+3. *Repository access*: **Only select repositories** → pilih `solidus-ui/undangan`.
+4. *Permissions → Repository permissions → Contents*: **Read and write**.
+5. Klik **Generate token**, salin token (`github_pat_…`) dan tempel di tab **Simpan** pada editor.
+   Centang *Ingat token di perangkat ini* bila HP/laptop pribadi. Jangan bagikan token ke orang lain.
+
+Untuk membatalkan semua hasil editor, ganti isi `js/overrides.js` menjadi `window.INVITATION_OVERRIDES = {};`.

@@ -1,6 +1,10 @@
 /* Logika undangan — umumnya tidak perlu diedit. Isi diatur di config.js */
 (function () {
   const C = window.INVITATION;
+  /* Hasil Editor (?edit=1 → Simpan ke GitHub) disimpan di js/overrides.js dan menimpa config */
+  const O = window.INVITATION_OVERRIDES || {};
+  if (O.theme) Object.assign(C.theme, O.theme);
+  C.framing = Object.assign({}, O.framing || {});
   const $ = (s) => document.querySelector(s);
   const esc = (s) => String(s == null ? '' : s).replace(/[&<>"']/g, (m) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[m]));
   const get = (path) => path.split('.').reduce((o, k) => (o ? o[k] : undefined), C);
@@ -41,7 +45,7 @@
 
   /* ---------- Isi teks & foto ---------- */
   document.querySelectorAll('[data-text]').forEach((el) => { el.textContent = get(el.dataset.text) || ''; });
-  document.querySelectorAll('[data-img]').forEach((el) => { el.style.backgroundImage = `url("${C.photos[el.dataset.img]}")`; });
+  document.querySelectorAll('[data-img]').forEach((el) => { el.dataset.src = C.photos[el.dataset.img]; el.classList.add('ph'); });
   document.title = `The Wedding of ${C.couple.shortTitle}`;
   $('#guestName').textContent = guest || C.texts.defaultGuest;
   if (guest) $('#fNama').value = guest;
@@ -54,7 +58,7 @@
   function tzOf(iso) { return /\+08:00$/.test(iso) ? 'Asia/Makassar' : /\+09:00$/.test(iso) ? 'Asia/Jayapura' : 'Asia/Jakarta'; }
 
   /* Mempelai */
-  const p = (x) => `<div class="person reveal"><img src="${esc(x.photo)}" alt="${esc(x.name)}" loading="lazy">
+  const p = (x) => `<div class="person reveal"><div class="ph person-photo" role="img" aria-label="${esc(x.name)}" data-src="${esc(x.photo)}"></div>
     <h4>${esc(x.name)}</h4><p class="full">${esc(x.fullName)}</p><p class="small">${esc(x.parents)}</p>
     ${x.instagram ? `<a href="${esc(x.instagram)}" target="_blank" rel="noopener">Instagram</a>` : ''}</div>`;
   const [first, second] = C.couple.brideFirst ? [C.couple.bride, C.couple.groom] : [C.couple.groom, C.couple.bride];
@@ -97,9 +101,9 @@
 
   /* Galeri + lightbox */
   if (C.photos.gallery && C.photos.gallery.length) {
-    $('#galleryGrid').innerHTML = C.photos.gallery.map((g) => { const o = typeof g === 'string' ? { src: g } : g; return `<img src="${esc(o.src)}" alt="Foto galeri" loading="lazy" class="reveal"${o.pos ? ` style="object-position:${esc(o.pos)}"` : ''}>`; }).join('');
+    $('#galleryGrid').innerHTML = C.photos.gallery.map((g, i) => { const o = typeof g === 'string' ? { src: g } : g; return `<div class="ph gi reveal" role="img" aria-label="Foto galeri ${i + 1}" data-src="${esc(o.src)}"${o.pos ? ` style="background-position:${esc(o.pos)}"` : ''}></div>`; }).join('');
     const lb = $('#lightbox');
-    $('#galleryGrid').addEventListener('click', (ev) => { if (ev.target.tagName === 'IMG') { lb.querySelector('img').src = ev.target.src; lb.hidden = false; } });
+    $('#galleryGrid').addEventListener('click', (ev) => { const g = ev.target.closest('.gi'); if (g && !document.body.classList.contains('ed-photo')) { lb.querySelector('img').src = g.dataset.src; lb.hidden = false; } });
     lb.addEventListener('click', () => { lb.hidden = true; });
   } else $('#gallery').remove();
 
@@ -233,7 +237,7 @@
   anim('.amp', 'a-zoom');
   anim('.timeline .item', 'a-left', true);
   anim('.event', 'a-up', true);
-  document.querySelectorAll('.gallery img').forEach((el, i) => { el.classList.add('a-zoom'); el.style.transitionDelay = (i % 2) * 0.12 + 's'; });
+  document.querySelectorAll('.gallery .gi').forEach((el, i) => { el.classList.add('a-zoom'); el.style.transitionDelay = (i % 2) * 0.12 + 's'; });
   anim('#giftToggle, #rsvpForm, .rsvp-sub, .stats', 'a-up');
   document.querySelectorAll('.reveal').forEach((el) => io.observe(el));
 
@@ -243,8 +247,28 @@
 
   applyTheme(C.theme);
 
-  /* Mode editor desain: tambahkan ?edit=1 di link */
-  if (params.get('edit') === '1') {
+  /* ---------- Bingkai foto (zoom & posisi) ---------- */
+  const natural = {};
+  const natSize = (src) => natural[src] || (natural[src] = new Promise((res) => { const i = new Image(); i.onload = () => res([i.naturalWidth, i.naturalHeight]); i.onerror = () => res(null); i.src = src; }));
+  async function framePhoto(el) {
+    const src = el.dataset.src; if (!src) return;
+    el.style.backgroundImage = `url("${src}")`;
+    const f = C.framing[src];
+    if (!f) { el.style.backgroundSize = 'cover'; return; }
+    const n = await natSize(src), w = el.clientWidth, h = el.clientHeight;
+    el.style.backgroundPosition = `${f.x}% ${f.y}%`;
+    if (!n || !w || !h) { el.style.backgroundSize = 'cover'; return; }
+    const s = Math.max(w / n[0], h / n[1]) * (f.z || 1);
+    el.style.backgroundSize = `${Math.ceil(n[0] * s)}px ${Math.ceil(n[1] * s)}px`;
+  }
+  const frameAll = () => document.querySelectorAll('.ph').forEach(framePhoto);
+  window.framePhoto = framePhoto; window.frameAll = frameAll; window.natSize = natSize;
+  frameAll();
+  let rz; window.addEventListener('resize', () => { clearTimeout(rz); rz = setTimeout(frameAll, 150); });
+  $('#openBtn').addEventListener('click', () => setTimeout(frameAll, 50));
+
+  /* Mode editor: tambahkan ?edit=1 di link */
+  if (params.get('edit') === '1' || location.hash === '#edit') {
     const s = document.createElement('script'); s.src = 'js/editor.js'; document.body.appendChild(s);
   }
 })();
