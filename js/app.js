@@ -72,11 +72,10 @@
 
   function tzOf(iso) { return /\+08:00$/.test(iso) ? 'Asia/Makassar' : /\+09:00$/.test(iso) ? 'Asia/Jayapura' : 'Asia/Jakarta'; }
 
-  /* ---------- Save the Date: slideshow foto (fade + zoom pelan) ---------- */
-  (function heroSlides() {
-    const list = (C.photos.heroSlides || []).filter(Boolean);
-    const box = document.querySelector('.hero-photo'), dots = $('#heroDots');
-    if (list.length < 2) { dots.remove(); return; }
+  /* ---------- Slideshow foto (fade + zoom pelan): Save the Date & Penutup ---------- */
+  function makeSlides(box, list, dots) {
+    list = (list || []).filter(Boolean);
+    if (!box || list.length < 2) { if (dots) dots.remove(); return; }
     box.removeAttribute('data-img'); box.classList.remove('ph'); delete box.dataset.src; box.classList.add('slides');
     box.innerHTML = list.map((src, i) => `<div class="ph slide${i ? '' : ' on'}" role="img" aria-label="Foto ${i + 1}" data-src="${esc(src)}"></div>`).join('');
     dots.innerHTML = list.map((_, i) => `<button type="button" role="tab" aria-label="Foto ${i + 1}" aria-selected="${!i}"${i ? '' : ' class="on"'}></button>`).join('');
@@ -91,13 +90,13 @@
     const paused = () => document.hidden || document.body.classList.contains('ed-photo') || matchMedia('(prefers-reduced-motion: reduce)').matches;
     const start = () => { clearInterval(timer); timer = setInterval(() => { if (!paused()) show(cur + 1); }, ms); };
     btns.forEach((b, k) => b.addEventListener('click', () => { show(k); start(); }));
-    // geser kiri/kanan di HP
-    let sx = null;
+    let sx = null; // geser kiri/kanan di HP
     box.parentElement.addEventListener('touchstart', (e) => { sx = e.touches[0].clientX; }, { passive: true });
     box.parentElement.addEventListener('touchend', (e) => { if (sx == null || document.body.classList.contains('ed-photo')) return; const dx = e.changedTouches[0].clientX - sx; if (Math.abs(dx) > 40) { show(cur + (dx < 0 ? 1 : -1)); start(); } sx = null; });
     show(0); start();
-    window.heroShow = show;
-  })();
+  }
+  makeSlides(document.querySelector('.hero-photo'), C.photos.heroSlides, $('#heroDots'));
+  makeSlides(document.querySelector('.closing-photo'), C.photos.closingSlides, $('#closingDots'));
 
   /* Mempelai */
   const ROSE = (C.theme.flowerImages && C.theme.flowerImages.stem) || 'assets/flowers/rose-stem.webp';
