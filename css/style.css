@@ -363,3 +363,5 @@ body.has-nav .music-btn { bottom: calc(76px + env(safe-area-inset-bottom, 0px));
 .closing { position: relative; }
 .closing-dots { position: relative; bottom: auto; margin-top: -1.6rem; z-index: 3; }
 .closing-photo.slides { overflow: hidden; }
+/* geser tanda & di judul nama sedikit ke kanan agar tampak di tengah */
+.script .amp-n { position: relative; left: .1em; }
