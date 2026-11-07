@@ -149,13 +149,17 @@ window.INVITATION = {
     petalDark: "#7e2a3a",   // maroon (mawar, tongkol anthurium)
     cream:     "#eee0c8",   // cream (pampas, anthurium, palem)
     leaf:      "#6b7558",   // hijau sage lembut (monstera)
-    flowerStyle: "garden",  // "garden" | "boho" | "mawar" | "peony" | "melati" | "daun" | "gambar"
+    flowerStyle: "realistis", // "realistis" | "garden" | "boho" | "mawar" | "peony" | "melati" | "daun" | "gambar"
+    roseRed: "#b3121f",     // mawar merah (gaya realistis)
+    tulipColor: "#d4283a",  // tulip merah (gaya realistis; sebagian tulip berwarna blush)
+    leafGreen: "#3f6b35",   // daun hijau (gaya realistis)
+    twigColor: "#6b4a34",   // ranting (gaya realistis)
     bloomPink: "#e8a1b0",   // pink peony & mawar (gaya garden)
     leafMauve: "#b8928c",   // daun mauve (gaya garden)
     flowerSize: 1,       // skala ukuran ornamen (0.6 – 1.6)
     flowerSway: false,      // true = bunga bergoyang pelan
     floralBg: true,         // motif bunga halus di latar bagian yang berisi tulisan
-    floralOpacity: 0.38,    // ketebalan motif latar (0.15 samar – 0.5 tebal)
+    floralOpacity: 0.3,     // ketebalan motif latar (0.15 samar – 0.5 tebal)
     fontTitle: "Pinyon Script",
     fontHeading: "Cormorant Garamond",
     fontBody: "Jost",

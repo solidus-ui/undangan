@@ -96,7 +96,9 @@
     document.body.classList.toggle('no-sway', theme.flowerSway === false);
     document.querySelectorAll('[data-flower]').forEach(el => {
       const kind = el.getAttribute('data-flower');
-      if (style === 'garden' && window.GARDEN_FLOWERS) {
+      if (style === 'realistis' && window.REAL_FLOWERS) {
+        el.innerHTML = kind === 'divider' ? window.REAL_FLOWERS.divider(c) : window.REAL_FLOWERS.corner(c);
+      } else if (style === 'garden' && window.GARDEN_FLOWERS) {
         el.innerHTML = kind === 'divider' ? window.GARDEN_FLOWERS.divider(c) : window.GARDEN_FLOWERS.corner(c);
       } else if (style === 'boho' && window.BOHO_FLOWERS) {
         const t = Object.assign({ cream: '#efe2cc' }, c);
@@ -109,5 +111,5 @@
       }
     });
   };
-  window.FLOWER_STYLES = ['garden', 'boho'].concat(Object.keys(FLOWER_DRAWERS), ['gambar']);
+  window.FLOWER_STYLES = ['realistis', 'garden', 'boho'].concat(Object.keys(FLOWER_DRAWERS), ['gambar']);
 })();

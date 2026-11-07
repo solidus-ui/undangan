@@ -29,8 +29,9 @@
       .map((f) => 'family=' + f.replace(/ /g, '+')).join('&');
     $('#gfonts').href = `https://fonts.googleapis.com/css2?${fam}&display=swap`;
     window.renderFlowers(t);
-    if (window.GARDEN_FLOWERS && t.floralBg !== false) {
-      r.setProperty('--floral-bg', `url("data:image/svg+xml,${encodeURIComponent(window.GARDEN_FLOWERS.pattern(t))}")`);
+    const FL = (t.flowerStyle === 'realistis' && window.REAL_FLOWERS) || window.GARDEN_FLOWERS;
+    if (FL && FL.pattern && t.floralBg !== false) {
+      r.setProperty('--floral-bg', `url("data:image/svg+xml,${encodeURIComponent(FL.pattern(t))}")`);
       r.setProperty('--floral-opacity', t.floralOpacity != null ? t.floralOpacity : .2);
     } else r.setProperty('--floral-bg', 'none');
   }

@@ -19,7 +19,7 @@
     "Navy & Gold": { primary: "#1f2f4f", accent: "#c8a24a", background: "#f7f5ef", surface: "#ffffff", text: "#1e2533", petal: "#f4f1ea", petalDark: "#c9bfa8", leaf: "#6f8a74", bloomPink: "#efe6dc", leafMauve: "#9aa59a" },
     "Maroon Klasik": { primary: "#6d1f2c", accent: "#c6a15b", background: "#faf6f0", surface: "#ffffff", text: "#2f1d20", petal: "#b84a5b", petalDark: "#7d2335", leaf: "#5f7d5a", bloomPink: "#c9667a", leafMauve: "#9b7f78" }
   };
-  const COLORS = [["primary", "Utama"], ["accent", "Aksen"], ["background", "Latar"], ["surface", "Kartu"], ["text", "Teks"], ["bloomPink", "Bunga pink"], ["petal", "Peach"], ["petalDark", "Maroon"], ["cream", "Cream"], ["leafMauve", "Daun mauve"], ["leaf", "Daun hijau"]];
+  const COLORS = [["primary", "Utama"], ["accent", "Aksen"], ["background", "Latar"], ["surface", "Kartu"], ["text", "Teks"], ["roseRed", "Mawar merah"], ["tulipColor", "Tulip"], ["leafGreen", "Daun (realistis)"], ["twigColor", "Ranting"], ["bloomPink", "Bunga pink"], ["petal", "Peach"], ["petalDark", "Maroon"], ["cream", "Cream"], ["leafMauve", "Daun mauve"], ["leaf", "Daun hijau"]];
   const FONTS_T = ["Pinyon Script", "Great Vibes", "Parisienne", "Alex Brush", "Dancing Script", "Allura"];
   const FONTS_H = ["Cormorant Garamond", "Playfair Display", "Cinzel", "Lora", "Marcellus"];
   const FONTS_B = ["Jost", "Poppins", "Montserrat", "Lato", "Nunito"];
