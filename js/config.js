@@ -54,8 +54,8 @@ window.INVITATION = {
 
   /* ---------- LAGU LATAR ---------- */
   music: {
-    src: "assets/music/lagu.mp3",           // taruh file mp3 Anda di assets/music/
-    title: "Anugerah Terindah (Saxophone Cover) – Dori Wirawan", // sudah dipotong mulai 1:20
+    src: "assets/music/lagu-piano.mp3",           // taruh file mp3 Anda di assets/music/
+    title: "Anugerah Terindah (Piano Cover)", // sudah dipotong mulai 3:02 sampai selesai, diputar berulang
     startAt: 0                              // detik ke-berapa lagu mulai
   },
 
