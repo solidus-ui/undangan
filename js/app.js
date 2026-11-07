@@ -30,7 +30,10 @@
     $('#gfonts').href = `https://fonts.googleapis.com/css2?${fam}&display=swap`;
     window.renderFlowers(t);
     const FL = (t.flowerStyle === 'realistis' && window.REAL_FLOWERS) || window.GARDEN_FLOWERS;
-    if (FL && FL.pattern && t.floralBg !== false) {
+    if (t.flowerStyle === 'foto' && t.floralBg !== false) {
+      r.setProperty('--floral-bg', `url("${new URL((t.flowerImages && t.flowerImages.bouquet) || 'assets/flowers/bouquet.webp', document.baseURI).href}")`);
+      r.setProperty('--floral-opacity', t.floralOpacity != null ? t.floralOpacity : .2);
+    } else if (FL && FL.pattern && t.floralBg !== false) {
       r.setProperty('--floral-bg', `url("data:image/svg+xml,${encodeURIComponent(FL.pattern(t))}")`);
       r.setProperty('--floral-opacity', t.floralOpacity != null ? t.floralOpacity : .2);
     } else r.setProperty('--floral-bg', 'none');
@@ -39,7 +42,14 @@
 
   /* ---------- Bagian yang hanya berisi tulisan: latar motif bunga + bunga di 4 pojok ---------- */
   const TEXT_SECTIONS = '.verse, #story, #event, #gift';
-  document.querySelectorAll(TEXT_SECTIONS).forEach((sec) => sec.classList.add('floral'));
+  document.querySelectorAll(TEXT_SECTIONS).forEach((sec, i) => {
+    sec.classList.add('floral');
+    // mawar bertangkai di sisi (bergantian kanan/kiri) — tampil pada gaya bunga "foto"
+    const img = document.createElement('img');
+    img.className = 'stem-rose ' + (i % 2 ? 'left' : 'right'); img.alt = ''; img.loading = 'lazy'; img.setAttribute('aria-hidden', 'true');
+    img.src = (C.theme.flowerImages && C.theme.flowerImages.stem) || 'assets/flowers/rose-stem.webp';
+    sec.appendChild(img);
+  });
 
   /* ---------- Bunga pojok kiri-bawah & kanan-bawah di setiap bagian ---------- */
   document.querySelectorAll('#main .section').forEach((sec) => {

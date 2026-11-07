@@ -288,9 +288,29 @@ body.has-nav .footer { padding-bottom: calc(80px + env(safe-area-inset-bottom, 0
   opacity: var(--floral-opacity, .2);
   -webkit-mask-image: radial-gradient(ellipse 70% 55% at 50% 50%, rgba(0,0,0,.45) 0%, rgba(0,0,0,.8) 55%, #000 100%);
           mask-image: radial-gradient(ellipse 70% 55% at 50% 50%, rgba(0,0,0,.45) 0%, rgba(0,0,0,.8) 55%, #000 100%); }
-.section.floral > *:not(.flower) { position: relative; z-index: 1; }
+.section.floral > *:not(.flower):not(.stem-rose) { position: relative; z-index: 1; }
 /* bunga pojok atas (lebih kecil & sedikit transparan agar tidak menutupi judul) */
 .bloom-flower.tl, .bloom-flower.tr { top: -2px; bottom: auto; width: calc(118px * var(--flower-scale)); opacity: .9; }
 .bloom-flower.tl { left: -2px; transform: none; }
 .bloom-flower.tr { right: -2px; transform: scaleX(-1); }
 .section.floral { padding-top: calc(4.5rem + 30px * var(--flower-scale)); }
+
+/* ---------- Gaya bunga "foto": tanpa bunga pojok; buket botani & mawar bertangkai ---------- */
+body.fl-photo .flower.corner { display: none; }
+body.fl-photo #main .section { padding-bottom: 4.5rem; }
+body.fl-photo .section.floral { padding-top: 4.5rem; }
+body.fl-photo .section.floral::before { background-repeat: no-repeat; background-size: auto 92%; background-position: center 55%;
+  -webkit-mask-image: none; mask-image: none; }
+.stem-rose { display: none; }
+body.fl-photo .stem-rose { display: block; position: absolute; z-index: 0; bottom: 0; height: min(62%, 280px); width: auto; max-width: none; pointer-events: none;
+  opacity: 0; transition: opacity 1.2s ease, transform 1.6s cubic-bezier(.2,.7,.2,1); }
+body.fl-photo .stem-rose.right { right: calc(min(62%, 280px) * -.37); transform: translateY(40px) rotate(4deg); }
+body.fl-photo .stem-rose.left { left: calc(min(62%, 280px) * -.37); transform: translateY(40px) scaleX(-1) rotate(4deg); }
+body.fl-photo .section.bloomed .stem-rose { opacity: .95; }
+body.fl-photo .section.bloomed .stem-rose.right { transform: rotate(4deg); }
+body.fl-photo .section.bloomed .stem-rose.left { transform: scaleX(-1) rotate(4deg); }
+.rose-div { display: flex; align-items: center; justify-content: center; gap: .7rem; }
+.rose-div i { display: block; width: 70px; height: 1px; background: linear-gradient(90deg, transparent, var(--accent)); }
+.rose-div i:last-child { transform: scaleX(-1); }
+.rose-div img { width: 46px; height: auto; filter: drop-shadow(0 3px 4px rgba(80,0,10,.25)); }
+@media (prefers-reduced-motion: reduce) { body.fl-photo .stem-rose { transition: none; } }

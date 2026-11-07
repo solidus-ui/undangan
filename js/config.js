@@ -149,7 +149,7 @@ window.INVITATION = {
     petalDark: "#7e2a3a",   // maroon (mawar, tongkol anthurium)
     cream:     "#eee0c8",   // cream (pampas, anthurium, palem)
     leaf:      "#6b7558",   // hijau sage lembut (monstera)
-    flowerStyle: "realistis", // "realistis" | "garden" | "boho" | "mawar" | "peony" | "melati" | "daun" | "gambar"
+    flowerStyle: "foto",    // "foto" | "realistis" | "garden" | "boho" | "mawar" | "peony" | "melati" | "daun" | "gambar"
     roseRed: "#b3121f",     // mawar merah (gaya realistis)
     tulipColor: "#d4283a",  // tulip merah (gaya realistis; sebagian tulip berwarna blush)
     leafGreen: "#3f6b35",   // daun hijau (gaya realistis)
@@ -159,11 +159,14 @@ window.INVITATION = {
     flowerSize: 1,       // skala ukuran ornamen (0.6 – 1.6)
     flowerSway: false,      // true = bunga bergoyang pelan
     floralBg: true,         // motif bunga halus di latar bagian yang berisi tulisan
-    floralOpacity: 0.3,     // ketebalan motif latar (0.15 samar – 0.5 tebal)
+    floralOpacity: 0.22,    // ketebalan motif latar (0.15 samar – 0.5 tebal)
     fontTitle: "Pinyon Script",
     fontHeading: "Cormorant Garamond",
     fontBody: "Jost",
-    flowerImages: {         // dipakai jika flowerStyle = "gambar"
+    flowerImages: {         // "foto": stem/bouquet/head · "gambar": corner/divider
+      stem: "assets/flowers/rose-stem.webp",   // mawar bertangkai di sisi bagian tulisan
+      bouquet: "assets/flowers/bouquet.webp",  // buket lukisan botani sebagai latar samar
+      head: "assets/flowers/rose-head.webp",   // kepala mawar di pembatas
       corner: "assets/flowers/corner.png",
       divider: "assets/flowers/divider.png"
     }

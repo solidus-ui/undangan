@@ -94,9 +94,13 @@
     const style = theme.flowerStyle;
     document.documentElement.style.setProperty('--flower-scale', theme.flowerSize || 1);
     document.body.classList.toggle('no-sway', theme.flowerSway === false);
+    document.body.classList.toggle('fl-photo', style === 'foto');
     document.querySelectorAll('[data-flower]').forEach(el => {
       const kind = el.getAttribute('data-flower');
-      if (style === 'realistis' && window.REAL_FLOWERS) {
+      if (style === 'foto') {
+        const im = theme.flowerImages || {};
+        el.innerHTML = kind === 'divider' ? `<span class="rose-div"><i></i><img src="${im.head || 'assets/flowers/rose-head.webp'}" alt="" loading="lazy"><i></i></span>` : '';
+      } else if (style === 'realistis' && window.REAL_FLOWERS) {
         el.innerHTML = kind === 'divider' ? window.REAL_FLOWERS.divider(c) : window.REAL_FLOWERS.corner(c);
       } else if (style === 'garden' && window.GARDEN_FLOWERS) {
         el.innerHTML = kind === 'divider' ? window.GARDEN_FLOWERS.divider(c) : window.GARDEN_FLOWERS.corner(c);
@@ -111,5 +115,5 @@
       }
     });
   };
-  window.FLOWER_STYLES = ['realistis', 'garden', 'boho'].concat(Object.keys(FLOWER_DRAWERS), ['gambar']);
+  window.FLOWER_STYLES = ['foto', 'realistis', 'garden', 'boho'].concat(Object.keys(FLOWER_DRAWERS), ['gambar']);
 })();
