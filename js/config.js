@@ -75,8 +75,8 @@ window.INVITATION = {
     {
       id: "malang",
       title: "Resepsi Malang",
-      date: "2026-11-24T16:00:00+07:00",
-      timeText: "Pukul 16.00 WIB",
+      date: "2026-11-24T18:00:00+07:00",
+      timeText: "Pukul 18.00 WIB",
       venue: "Taman Krida Budaya",
       address: "Jl. Soekarno Hatta No. 7, Lowokwaru, Kota Malang",
       mapsUrl: "https://www.google.com/maps/search/?api=1&query=Taman+Krida+Budaya+Jawa+Timur+Malang"

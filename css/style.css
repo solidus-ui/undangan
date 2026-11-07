@@ -345,3 +345,11 @@ body.fl-photo .section.bloomed .stem-rose.left { transform: scaleX(-1) rotate(4d
 .bottom-nav a { font-size: .62rem; white-space: nowrap; padding: .25rem 0; border-radius: 12px; transition: color .2s, background .2s; }
 .bottom-nav a.on { background: color-mix(in srgb, var(--primary) 9%, transparent); }
 body.has-nav .music-btn { bottom: calc(76px + env(safe-area-inset-bottom, 0px)); }
+
+/* tanda & kaligrafi (dari gambar), warna mengikuti warna nama mempelai */
+.amp-n { display: inline-block; width: .62em; height: .74em; margin: 0 .1em; vertical-align: -.06em; font-size: 1em;
+  color: transparent; overflow: hidden; white-space: nowrap; text-indent: 200%;
+  background: var(--primary);
+  -webkit-mask: var(--amp-mask) center / contain no-repeat; mask: var(--amp-mask) center / contain no-repeat; }
+.amp { display: flex; justify-content: center; font-size: 4.2rem; line-height: 1; }
+.amp .amp-n { margin: 0; }

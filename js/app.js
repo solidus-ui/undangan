@@ -29,6 +29,7 @@
       .map((f) => 'family=' + f.replace(/ /g, '+')).join('&');
     $('#gfonts').href = `https://fonts.googleapis.com/css2?${fam}&display=swap`;
     window.renderFlowers(t);
+    r.setProperty('--amp-mask', `url("${new URL('assets/img/ampersand.png', document.baseURI).href}")`);
     const FL = (t.flowerStyle === 'realistis' && window.REAL_FLOWERS) || window.GARDEN_FLOWERS;
     if (t.flowerStyle === 'foto' && t.floralBg !== false) {
       r.setProperty('--floral-bg', `url("${new URL((t.flowerImages && t.flowerImages.bouquet) || 'assets/flowers/bouquet.webp', document.baseURI).href}")`);
@@ -106,7 +107,7 @@
   const [first, second] = C.couple.brideFirst ? [C.couple.bride, C.couple.groom] : [C.couple.groom, C.couple.bride];
   // mawar di kiri foto mempelai pria & di kanan foto mempelai wanita
   const sideOf = (x) => (x === C.couple.groom ? 'left' : 'right');
-  $('#coupleWrap').innerHTML = p(first, sideOf(first)) + '<div class="amp reveal">&amp;</div>' + p(second, sideOf(second));
+  $('#coupleWrap').innerHTML = p(first, sideOf(first)) + '<div class="amp reveal"><span class="amp-n" role="img" aria-label="dan">&amp;</span></div>' + p(second, sideOf(second));
 
   /* Kisah */
   if (C.loveStory && C.loveStory.length) {
