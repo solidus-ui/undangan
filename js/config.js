@@ -164,7 +164,7 @@ window.INVITATION = {
     fontHeading: "Cormorant Garamond",
     fontBody: "Jost",
     flowerImages: {         // "foto": stem/bouquet/head · "gambar": corner/divider
-      stem: "assets/flowers/rose-stem.webp",   // mawar bertangkai di sisi bagian tulisan
+      stem: "assets/flowers/rose-stem.webp",   // mawar satu tangkai di samping foto mempelai
       bouquet: "assets/flowers/bouquet.webp",  // buket lukisan botani sebagai latar samar
       head: "assets/flowers/rose-head.webp",   // kepala mawar di pembatas
       corner: "assets/flowers/corner.png",

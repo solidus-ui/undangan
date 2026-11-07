@@ -42,14 +42,7 @@
 
   /* ---------- Bagian yang hanya berisi tulisan: latar motif bunga + bunga di 4 pojok ---------- */
   const TEXT_SECTIONS = '.verse, #story, #event, #gift';
-  document.querySelectorAll(TEXT_SECTIONS).forEach((sec, i) => {
-    sec.classList.add('floral');
-    // mawar bertangkai di sisi (bergantian kanan/kiri) — tampil pada gaya bunga "foto"
-    const img = document.createElement('img');
-    img.className = 'stem-rose ' + (i % 2 ? 'left' : 'right'); img.alt = ''; img.loading = 'lazy'; img.setAttribute('aria-hidden', 'true');
-    img.src = (C.theme.flowerImages && C.theme.flowerImages.stem) || 'assets/flowers/rose-stem.webp';
-    sec.appendChild(img);
-  });
+  document.querySelectorAll(TEXT_SECTIONS).forEach((sec) => sec.classList.add('floral'));
 
   /* ---------- Bunga pojok kiri-bawah & kanan-bawah di setiap bagian ---------- */
   document.querySelectorAll('#main .section').forEach((sec) => {
