@@ -154,6 +154,8 @@ window.INVITATION = {
     leafMauve: "#b8928c",   // daun mauve (gaya garden)
     flowerSize: 1,       // skala ukuran ornamen (0.6 – 1.6)
     flowerSway: false,      // true = bunga bergoyang pelan
+    floralBg: true,         // motif bunga halus di latar bagian yang berisi tulisan
+    floralOpacity: 0.38,    // ketebalan motif latar (0.15 samar – 0.5 tebal)
     fontTitle: "Pinyon Script",
     fontHeading: "Cormorant Garamond",
     fontBody: "Jost",

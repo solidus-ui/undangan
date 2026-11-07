@@ -146,5 +146,25 @@
     return s + `</svg>`;
   }
 
-  window.GARDEN_FLOWERS = { corner, divider };
+  /* Motif latar (ubin 240×240 yang diulang): mawar mini, bunga kecil, ranting, daun */
+  function pattern(c) {
+    const id = 'p' + (++uid), P = palette(c);
+    let s = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 240" width="240" height="240">${defs(P, id).replace(/<filter[\s\S]*?<\/filter>/, '')}`;
+    const L = (x, y, l, a, i) => leaf(x, y, l, a, i % 2 ? P.mauve : mix(P.mauve, P.cream, .35), mix(P.mauve, '#ffffff', .4));
+    // gugus 1 (kiri atas) & gugus 2 (kanan bawah) — posisi dibuat agar menyambung saat diulang
+    [[30, 44, 16, -30], [48, 30, 15, 200], [52, 54, 13, 60], [168, 170, 16, 150], [190, 186, 15, 20], [182, 150, 13, -60],
+     [120, 96, 12, 10], [104, 110, 11, 190], [8, 160, 12, -80], [214, 70, 12, 100]].forEach((d, i) => { s += L(...d, i); });
+    s += sprig(60, 70, 34, 30, P) + sprig(150, 150, 34, 210, P) + sprig(200, 40, 26, 120, P) + sprig(20, 200, 26, -60, P);
+    s += gardenRose(40, 40, 11, 'gp', P, id, 10).replace(/ filter="[^"]*"/, '');
+    s += gardenRose(180, 176, 11, 'gm', P, id, -20).replace(/ filter="[^"]*"/, '');
+    s += gardenRose(118, 104, 7, 'gr', P, id, 0).replace(/ filter="[^"]*"/, '');
+    s += daisy(62, 32, 5.5, P, 10) + daisy(30, 64, 5, P, 40) + daisy(200, 160, 5.5, P, 20) + daisy(164, 196, 5, P, 0)
+       + daisy(216, 92, 4.5, P, 15) + daisy(96, 210, 4.5, P, 30) + daisy(140, 20, 4, P, 0) + daisy(12, 120, 4, P, 0);
+    s += bud(206, 28, 14, 120, P) + bud(26, 208, 14, -60, P) + bud(130, 120, 11, 40, P);
+    [[90, 40, P.pink], [150, 60, P.blush], [70, 140, P.blush], [230, 210, P.pink], [110, 170, P.pink], [180, 110, P.blush]]
+      .forEach(([x, y, col]) => { s += `<circle cx="${x}" cy="${y}" r="1.8" fill="${col}"/>`; });
+    return s + `</svg>`;
+  }
+
+  window.GARDEN_FLOWERS = { corner, divider, pattern };
 })();

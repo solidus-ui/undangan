@@ -29,12 +29,20 @@
       .map((f) => 'family=' + f.replace(/ /g, '+')).join('&');
     $('#gfonts').href = `https://fonts.googleapis.com/css2?${fam}&display=swap`;
     window.renderFlowers(t);
+    if (window.GARDEN_FLOWERS && t.floralBg !== false) {
+      r.setProperty('--floral-bg', `url("data:image/svg+xml,${encodeURIComponent(window.GARDEN_FLOWERS.pattern(t))}")`);
+      r.setProperty('--floral-opacity', t.floralOpacity != null ? t.floralOpacity : .2);
+    } else r.setProperty('--floral-bg', 'none');
   }
   window.applyTheme = applyTheme;
 
+  /* ---------- Bagian yang hanya berisi tulisan: latar motif bunga + bunga di 4 pojok ---------- */
+  const TEXT_SECTIONS = '.verse, #story, #event, #gift';
+  document.querySelectorAll(TEXT_SECTIONS).forEach((sec) => sec.classList.add('floral'));
+
   /* ---------- Bunga pojok kiri-bawah & kanan-bawah di setiap bagian ---------- */
   document.querySelectorAll('#main .section').forEach((sec) => {
-    ['bl', 'br'].forEach((k) => {
+    (sec.classList.contains('floral') ? ['bl', 'br', 'tl', 'tr'] : ['bl', 'br']).forEach((k) => {
       const d = document.createElement('div');
       d.className = 'flower corner bloom-flower ' + k;
       d.setAttribute('data-flower', 'corner');

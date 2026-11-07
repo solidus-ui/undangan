@@ -280,3 +280,17 @@ body.no-sway .corner > * { animation: none; }
 body.has-nav .music-btn { bottom: calc(84px + env(safe-area-inset-bottom, 0px)); }
 body.has-nav .footer { padding-bottom: calc(80px + env(safe-area-inset-bottom, 0px)); }
 .hero-photo.slides { z-index: 0; }
+
+/* ---------- Latar motif bunga untuk bagian berisi tulisan ---------- */
+.section.floral { isolation: isolate; }
+.section.floral::before { content: ""; position: absolute; inset: 0; z-index: -1; pointer-events: none;
+  background-image: var(--floral-bg, none); background-size: 220px 220px; background-repeat: repeat;
+  opacity: var(--floral-opacity, .2);
+  -webkit-mask-image: radial-gradient(ellipse 70% 55% at 50% 50%, rgba(0,0,0,.45) 0%, rgba(0,0,0,.8) 55%, #000 100%);
+          mask-image: radial-gradient(ellipse 70% 55% at 50% 50%, rgba(0,0,0,.45) 0%, rgba(0,0,0,.8) 55%, #000 100%); }
+.section.floral > *:not(.flower) { position: relative; z-index: 1; }
+/* bunga pojok atas (lebih kecil & sedikit transparan agar tidak menutupi judul) */
+.bloom-flower.tl, .bloom-flower.tr { top: -2px; bottom: auto; width: calc(118px * var(--flower-scale)); opacity: .9; }
+.bloom-flower.tl { left: -2px; transform: none; }
+.bloom-flower.tr { right: -2px; transform: scaleX(-1); }
+.section.floral { padding-top: calc(4.5rem + 30px * var(--flower-scale)); }
