@@ -339,3 +339,9 @@ body.fl-photo .section.bloomed .stem-rose.left { transform: scaleX(-1) rotate(4d
 .pill.no span { background: #f8e4e2; color: #a8352b; }
 .pill.yes input:checked + span { background: #3f8a4a; border-color: #3f8a4a; color: #fff; }
 .pill.no input:checked + span { background: #c0392b; border-color: #c0392b; color: #fff; }
+
+/* menu bawah: 6 tombol section, tanpa Home */
+.bottom-nav { grid-template-columns: repeat(6, 1fr); align-items: center; padding-top: .45rem; }
+.bottom-nav a { font-size: .62rem; white-space: nowrap; padding: .25rem 0; border-radius: 12px; transition: color .2s, background .2s; }
+.bottom-nav a.on { background: color-mix(in srgb, var(--primary) 9%, transparent); }
+body.has-nav .music-btn { bottom: calc(76px + env(safe-area-inset-bottom, 0px)); }
