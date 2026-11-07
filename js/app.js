@@ -106,11 +106,14 @@
   })();
 
   /* Mempelai */
-  const p = (x) => `<div class="person reveal"><div class="ph person-photo" role="img" aria-label="${esc(x.name)}" data-src="${esc(x.photo)}"></div>
+  const ROSE = (C.theme.flowerImages && C.theme.flowerImages.stem) || 'assets/flowers/rose-stem.webp';
+  const p = (x, side) => `<div class="person reveal"><div class="photo-wrap"><img class="couple-rose ${side}" src="${esc(ROSE)}" alt="" aria-hidden="true" loading="lazy"><div class="ph person-photo" role="img" aria-label="${esc(x.name)}" data-src="${esc(x.photo)}"></div></div>
     <h4>${esc(x.name)}</h4><p class="full">${esc(x.fullName)}</p><p class="small">${esc(x.parents)}</p>
     ${x.instagram ? `<a href="${esc(x.instagram)}" target="_blank" rel="noopener">Instagram</a>` : ''}</div>`;
   const [first, second] = C.couple.brideFirst ? [C.couple.bride, C.couple.groom] : [C.couple.groom, C.couple.bride];
-  $('#coupleWrap').innerHTML = p(first) + '<div class="amp reveal" role="img" aria-label="dan"><svg viewBox="0 0 24 24" width="40" height="40" aria-hidden="true"><path fill="currentColor" d="M12 21s-7.2-4.35-9.6-8.7C.7 9.1 2.3 5 6.1 4.3c2.1-.4 4 .6 5.9 2.7 1.9-2.1 3.8-3.1 5.9-2.7 3.8.7 5.4 4.8 3.7 8C19.2 16.65 12 21 12 21Z"/></svg></div>' + p(second);
+  // mawar di kiri foto mempelai pria & di kanan foto mempelai wanita
+  const sideOf = (x) => (x === C.couple.groom ? 'left' : 'right');
+  $('#coupleWrap').innerHTML = p(first, sideOf(first)) + '<div class="amp reveal">&amp;</div>' + p(second, sideOf(second));
 
   /* Kisah */
   if (C.loveStory && C.loveStory.length) {

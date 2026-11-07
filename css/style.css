@@ -316,7 +316,13 @@ body.fl-photo .section.bloomed .stem-rose.left { transform: scaleX(-1) rotate(4d
 @media (prefers-reduced-motion: reduce) { body.fl-photo .stem-rose { transition: none; } }
 
 /* tanda & normal & hati pink di Mempelai */
-.amp-n { font-family: var(--f-head); font-style: italic; font-weight: 500; font-size: .62em; vertical-align: .12em; margin: 0 .08em; color: var(--accent); }
-.amp { line-height: 1; color: #e88aa0; display: flex; justify-content: center; }
-.amp svg { filter: drop-shadow(0 4px 8px rgba(232,138,160,.4)); animation: beat 1.8s ease-in-out infinite; }
-@media (prefers-reduced-motion: reduce) { .amp svg { animation: none; } }
+.amp-n { font-family: var(--f-body); font-style: normal; font-weight: 400; font-size: .5em; vertical-align: .22em; margin: 0 .1em; color: var(--accent); }
+.amp { font-family: var(--f-body); font-style: normal; font-weight: 300; font-size: 2.2rem; line-height: 1; color: var(--accent); }
+
+/* mawar satu tangkai di samping foto mempelai */
+.photo-wrap { position: relative; width: 190px; max-width: 100%; margin: 0 auto 1rem; }
+.photo-wrap .person-photo { position: relative; z-index: 1; margin: 0; }
+.couple-rose { position: absolute; z-index: 0; top: -14px; height: 280px; width: auto; max-width: none; pointer-events: none; opacity: .55; }
+.couple-rose.left { right: calc(100% - 26px); transform: scaleX(-1) rotate(5deg); transform-origin: 50% 100%; }
+.couple-rose.right { left: calc(100% - 26px); transform: rotate(5deg); transform-origin: 50% 100%; }
+.person .couple-rose { width: auto; height: 280px; border: 0; border-radius: 0; box-shadow: none; margin: 0; object-fit: contain; }
