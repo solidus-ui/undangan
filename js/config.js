@@ -29,7 +29,14 @@ window.INVITATION = {
   /* ---------- FOTO ---------- */
   photos: {
     cover: "assets/img/cover.jpg",          // Cover Undangan.jpg (Prambanan)
-    hero: "assets/img/hero.jpg",            // 0Y1A0239 (veil, Prambanan)
+    hero: "assets/img/hero.jpg",            // 0Y1A0239 (veil, Prambanan) — dipakai bila heroSlides kosong
+    heroSlides: [                           // foto Save the Date yang berganti otomatis (urutan = urutan tampil)
+      "assets/img/slide-1.jpg",             // Jawa: berdua di bawah veil
+      "assets/img/slide-2.jpg",             // Jawa: kursi & payung, Prambanan
+      "assets/img/slide-3.jpg",             // Bugis: Taufik duduk, Niken berdiri
+      "assets/img/slide-4.jpg"              // Bugis: Niken duduk, Taufik berdiri
+    ],
+    slideSeconds: 5,                        // lama tiap foto tampil (detik)
     closing: "assets/img/penutup.jpg",      // Bugis berdua (Niken duduk, Taufik berdiri)
     gallery: [                              // foto berdua; tambahkan foto Bugis berdua di sini
       "assets/img/galeri-01.jpg",           // 0Y1A0110

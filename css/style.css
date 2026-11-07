@@ -252,3 +252,31 @@ body.no-sway .corner > * { animation: none; }
 .footer .heart { color: color-mix(in srgb, var(--petal) 70%, #ff6b81); animation: beat 1.6s ease-in-out infinite; }
 @keyframes beat { 0%, 100% { transform: scale(1); } 15% { transform: scale(1.22); } 30% { transform: scale(1); } 45% { transform: scale(1.14); } }
 @media (prefers-reduced-motion: reduce) { .footer .heart { animation: none; } }
+
+/* ---------- Save the Date slideshow ---------- */
+.hero-photo.slides { background: none; }
+.hero-photo .slide { position: absolute; inset: 0; opacity: 0; transition: opacity 1.6s ease; background-position: center 30%; }
+.hero-photo .slide.on { opacity: 1; z-index: 1; }
+.hero-photo .slide.kb { animation: kenburns 9s ease-out both; }
+@keyframes kenburns { from { transform: scale(1.12); } to { transform: scale(1); } }
+.hero-dots { position: absolute; z-index: 3; left: 0; right: 0; bottom: .7rem; display: flex; justify-content: center; gap: .45rem; }
+.hero-dots button { width: 8px; height: 8px; padding: 0; border-radius: 999px; border: 0; background: color-mix(in srgb, var(--primary) 35%, transparent); transition: width .3s, background .3s; }
+.hero-dots button.on { width: 22px; background: var(--primary); }
+@media (prefers-reduced-motion: reduce) { .hero-photo .slide.kb { animation: none; } }
+
+/* ---------- Menu bawah dengan tombol Home di tengah ---------- */
+.bottom-nav { position: fixed; z-index: 55; left: 50%; transform: translateX(-50%); bottom: 0; width: 100%; max-width: var(--maxw);
+  display: grid; grid-template-columns: repeat(5, 1fr); align-items: end;
+  padding: .35rem max(10px, env(safe-area-inset-left, 0px)) calc(.4rem + env(safe-area-inset-bottom, 0px)) max(10px, env(safe-area-inset-right, 0px));
+  background: color-mix(in srgb, var(--surface) 92%, transparent); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+  border-top: 1px solid color-mix(in srgb, var(--accent) 30%, transparent); box-shadow: 0 -6px 20px rgba(60,20,30,.08); border-radius: 18px 18px 0 0; }
+.bottom-nav a { display: flex; flex-direction: column; align-items: center; gap: 2px; color: color-mix(in srgb, var(--text) 60%, transparent); text-decoration: none; font-size: .64rem; font-weight: 500; padding: .2rem 0; }
+.bottom-nav a svg { width: 22px; height: 22px; }
+.bottom-nav a.on { color: var(--primary); }
+.bottom-nav a.home { justify-self: center; width: 58px; height: 58px; margin-top: -26px; border-radius: 50%; background: var(--primary); color: #fff; justify-content: center;
+  box-shadow: 0 8px 18px color-mix(in srgb, var(--primary) 45%, transparent); border: 4px solid var(--surface); }
+.bottom-nav a.home svg { width: 26px; height: 26px; }
+.bottom-nav a:focus-visible { outline: 2px solid var(--primary); outline-offset: 2px; border-radius: 10px; }
+body.has-nav .music-btn { bottom: calc(84px + env(safe-area-inset-bottom, 0px)); }
+body.has-nav .footer { padding-bottom: calc(80px + env(safe-area-inset-bottom, 0px)); }
+.hero-photo.slides { z-index: 0; }

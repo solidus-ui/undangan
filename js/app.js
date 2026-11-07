@@ -57,6 +57,33 @@
 
   function tzOf(iso) { return /\+08:00$/.test(iso) ? 'Asia/Makassar' : /\+09:00$/.test(iso) ? 'Asia/Jayapura' : 'Asia/Jakarta'; }
 
+  /* ---------- Save the Date: slideshow foto (fade + zoom pelan) ---------- */
+  (function heroSlides() {
+    const list = (C.photos.heroSlides || []).filter(Boolean);
+    const box = document.querySelector('.hero-photo'), dots = $('#heroDots');
+    if (list.length < 2) { dots.remove(); return; }
+    box.removeAttribute('data-img'); box.classList.remove('ph'); delete box.dataset.src; box.classList.add('slides');
+    box.innerHTML = list.map((src, i) => `<div class="ph slide${i ? '' : ' on'}" role="img" aria-label="Foto ${i + 1}" data-src="${esc(src)}"></div>`).join('');
+    dots.innerHTML = list.map((_, i) => `<button type="button" role="tab" aria-label="Foto ${i + 1}" aria-selected="${!i}"${i ? '' : ' class="on"'}></button>`).join('');
+    const slides = [...box.children], btns = [...dots.children];
+    let cur = 0, timer = null;
+    const ms = Math.max(2, +C.photos.slideSeconds || 5) * 1000;
+    function show(i) {
+      cur = (i + slides.length) % slides.length;
+      slides.forEach((s, k) => { s.classList.toggle('on', k === cur); if (k === cur) { s.classList.remove('kb'); void s.offsetWidth; s.classList.add('kb'); } });
+      btns.forEach((b, k) => { b.classList.toggle('on', k === cur); b.setAttribute('aria-selected', String(k === cur)); });
+    }
+    const paused = () => document.hidden || document.body.classList.contains('ed-photo') || matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const start = () => { clearInterval(timer); timer = setInterval(() => { if (!paused()) show(cur + 1); }, ms); };
+    btns.forEach((b, k) => b.addEventListener('click', () => { show(k); start(); }));
+    // geser kiri/kanan di HP
+    let sx = null;
+    box.parentElement.addEventListener('touchstart', (e) => { sx = e.touches[0].clientX; }, { passive: true });
+    box.parentElement.addEventListener('touchend', (e) => { if (sx == null || document.body.classList.contains('ed-photo')) return; const dx = e.changedTouches[0].clientX - sx; if (Math.abs(dx) > 40) { show(cur + (dx < 0 ? 1 : -1)); start(); } sx = null; });
+    show(0); start();
+    window.heroShow = show;
+  })();
+
   /* Mempelai */
   const p = (x) => `<div class="person reveal"><div class="ph person-photo" role="img" aria-label="${esc(x.name)}" data-src="${esc(x.photo)}"></div>
     <h4>${esc(x.name)}</h4><p class="full">${esc(x.fullName)}</p><p class="small">${esc(x.parents)}</p>
@@ -221,6 +248,24 @@
       }
     }
   });
+
+  /* ---------- Menu bawah: muncul setelah undangan dibuka, tandai bagian aktif ---------- */
+  const nav = $('#bottomNav');
+  if (nav) {
+    nav.querySelectorAll('a').forEach((a) => { if (!document.querySelector(a.getAttribute('href'))) a.remove(); });
+    $('#openBtn').addEventListener('click', () => { nav.hidden = false; document.body.classList.add('has-nav'); });
+    nav.addEventListener('click', (e) => {
+      const a = e.target.closest('a'); if (!a) return; e.preventDefault();
+      const t = document.querySelector(a.getAttribute('href'));
+      if (t) window.scrollTo({ top: a.dataset.nav === 'home' ? 0 : t.getBoundingClientRect().top + scrollY - 8, behavior: 'smooth' });
+    });
+    const secs = [...nav.querySelectorAll('a')].map((a) => document.querySelector(a.getAttribute('href'))).filter(Boolean);
+    const navObs = new IntersectionObserver((ents) => ents.forEach((en) => {
+      if (!en.isIntersecting) return;
+      nav.querySelectorAll('a').forEach((a) => a.classList.toggle('on', a.getAttribute('href') === '#' + en.target.id));
+    }), { rootMargin: '-45% 0px -50% 0px' });
+    secs.forEach((s2) => navObs.observe(s2));
+  }
 
   /* Animasi muncul saat di-scroll */
   const io = new IntersectionObserver((ents) => ents.forEach((en) => { if (en.isIntersecting) { en.target.classList.add('in'); io.unobserve(en.target); } }), { threshold: 0.15 });

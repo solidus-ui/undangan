@@ -44,8 +44,9 @@
   <main id="main">
 
     <!-- ================= HERO ================= -->
-    <section class="hero">
+    <section class="hero" id="home">
       <div class="hero-photo reveal a-settle" data-img="hero"></div>
+      <div class="hero-dots" id="heroDots" role="tablist" aria-label="Foto Save the Date"></div>
       <div class="hero-text reveal">
         <p class="eyebrow">Save the Date</p>
         <h2 class="script" data-text="couple.shortTitle"></h2>
@@ -144,6 +145,15 @@
       <span>by <b>Taufik &amp; Niken</b></span>
     </footer>
   </main>
+
+  <!-- Menu bawah dengan tombol Home di tengah -->
+  <nav class="bottom-nav" id="bottomNav" aria-label="Navigasi undangan" hidden>
+    <a href="#couple" data-nav="couple"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s-7-4.3-9.4-8.6C1 9.3 2.6 5.3 6.3 4.7c2-.3 3.9.7 5.7 2.8 1.8-2.1 3.7-3.1 5.7-2.8 3.7.6 5.3 4.6 3.7 7.7C19 16.7 12 21 12 21Z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg><span>Mempelai</span></a>
+    <a href="#event" data-nav="event"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="5" width="17" height="15.5" rx="2.5" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M3.5 10h17M8 3v4M16 3v4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg><span>Acara</span></a>
+    <a href="#home" data-nav="home" class="home" aria-label="Halaman utama"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 11 12 4l8 7v8.5a1 1 0 0 1-1 1h-4.5v-6h-5v6H5a1 1 0 0 1-1-1Z" fill="currentColor"/></svg></a>
+    <a href="#gallery" data-nav="gallery"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="4.5" width="17" height="15" rx="2.5" fill="none" stroke="currentColor" stroke-width="1.8"/><circle cx="9" cy="10" r="1.8" fill="currentColor"/><path d="m4.5 18 5-5 3.5 3.5 2.5-2.5 4 4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg><span>Galeri</span></a>
+    <a href="#rsvp" data-nav="rsvp"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5.5h16v10.5H9l-5 4Z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path d="M8 9.5h8M8 12.5h5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg><span>Ucapan</span></a>
+  </nav>
 
   <!-- Tombol musik -->
   <button id="musicBtn" class="music-btn" aria-label="Putar/hentikan musik" hidden>
