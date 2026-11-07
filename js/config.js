@@ -114,7 +114,7 @@ window.INVITATION = {
   /* ---------- AMPLOP DIGITAL (hapus isi array untuk menyembunyikan) ---------- */
   gifts: [
     { bank: "Bank Mandiri", logo: "assets/img/bank-mandiri.png", number: "1740002850261", holder: "M TAUFIK APRINANDA" },
-    { bank: "Bank Mandiri", logo: "assets/img/bank-mandiri.png", number: "1190012288351", holder: "NIKEN WIDOWATI" }
+    { bank: "BCA", logo: "assets/img/bank-bca.png", number: "8161462942", holder: "NIKEN WIDOWATI" }
   ],
   giftText: "Doa restu Anda merupakan karunia yang sangat berarti bagi kami. Dan jika memberi adalah ungkapan tanda kasih, Anda dapat memberi kado secara cashless.",
   giftAddress: "",                          // kosong = bagian kirim kado ke alamat tidak ditampilkan
