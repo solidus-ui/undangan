@@ -64,6 +64,8 @@
 
   /* ---------- Isi teks & foto ---------- */
   document.querySelectorAll('[data-text]').forEach((el) => { el.textContent = get(el.dataset.text) || ''; });
+  // tanda "&" pada judul huruf sambung memakai huruf biasa
+  document.querySelectorAll('.script').forEach((el) => { if (el.textContent.includes('&')) el.innerHTML = esc(el.textContent).replace(/\s*&amp;\s*/g, ' <span class="amp-n">&amp;</span> '); });
   document.querySelectorAll('[data-img]').forEach((el) => { el.dataset.src = C.photos[el.dataset.img]; el.classList.add('ph'); });
   document.title = `The Wedding of ${C.couple.shortTitle}`;
   $('#guestName').textContent = guest || C.texts.defaultGuest;
@@ -108,7 +110,7 @@
     <h4>${esc(x.name)}</h4><p class="full">${esc(x.fullName)}</p><p class="small">${esc(x.parents)}</p>
     ${x.instagram ? `<a href="${esc(x.instagram)}" target="_blank" rel="noopener">Instagram</a>` : ''}</div>`;
   const [first, second] = C.couple.brideFirst ? [C.couple.bride, C.couple.groom] : [C.couple.groom, C.couple.bride];
-  $('#coupleWrap').innerHTML = p(first) + '<div class="amp reveal">&amp;</div>' + p(second);
+  $('#coupleWrap').innerHTML = p(first) + '<div class="amp reveal" role="img" aria-label="dan"><svg viewBox="0 0 24 24" width="40" height="40" aria-hidden="true"><path fill="currentColor" d="M12 21s-7.2-4.35-9.6-8.7C.7 9.1 2.3 5 6.1 4.3c2.1-.4 4 .6 5.9 2.7 1.9-2.1 3.8-3.1 5.9-2.7 3.8.7 5.4 4.8 3.7 8C19.2 16.65 12 21 12 21Z"/></svg></div>' + p(second);
 
   /* Kisah */
   if (C.loveStory && C.loveStory.length) {

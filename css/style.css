@@ -314,3 +314,9 @@ body.fl-photo .section.bloomed .stem-rose.left { transform: scaleX(-1) rotate(4d
 .rose-div i:last-child { transform: scaleX(-1); }
 .rose-div img { width: 46px; height: auto; filter: drop-shadow(0 3px 4px rgba(80,0,10,.25)); }
 @media (prefers-reduced-motion: reduce) { body.fl-photo .stem-rose { transition: none; } }
+
+/* tanda & normal & hati pink di Mempelai */
+.amp-n { font-family: var(--f-head); font-style: italic; font-weight: 500; font-size: .62em; vertical-align: .12em; margin: 0 .08em; color: var(--accent); }
+.amp { line-height: 1; color: #e88aa0; display: flex; justify-content: center; }
+.amp svg { filter: drop-shadow(0 4px 8px rgba(232,138,160,.4)); animation: beat 1.8s ease-in-out infinite; }
+@media (prefers-reduced-motion: reduce) { .amp svg { animation: none; } }
