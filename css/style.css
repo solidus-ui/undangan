@@ -299,7 +299,7 @@ body.has-nav .footer { padding-bottom: calc(80px + env(safe-area-inset-bottom, 0
 body.fl-photo .flower.corner { display: none; }
 body.fl-photo #main .section { padding-bottom: 4.5rem; }
 body.fl-photo .section.floral { padding-top: 4.5rem; }
-body.fl-photo .section.floral::before { background-repeat: no-repeat; background-size: auto 92%; background-position: center 55%;
+body.fl-photo .section.floral::before { background-repeat: no-repeat; background-size: auto min(92%, 600px); background-position: center 50%;
   -webkit-mask-image: none; mask-image: none; }
 .stem-rose { display: none; }
 body.fl-photo .stem-rose { display: block; position: absolute; z-index: 0; bottom: 0; height: min(62%, 280px); width: auto; max-width: none; pointer-events: none;
@@ -326,3 +326,16 @@ body.fl-photo .section.bloomed .stem-rose.left { transform: scaleX(-1) rotate(4d
 .couple-rose.left { right: calc(100% - 26px); transform: scaleX(-1) rotate(5deg); transform-origin: 50% 100%; }
 .couple-rose.right { left: calc(100% - 26px); transform: rotate(5deg); transform-origin: 50% 100%; }
 .person .couple-rose { width: auto; height: 280px; border: 0; border-radius: 0; box-shadow: none; margin: 0; object-fit: contain; }
+
+/* mawar Mempelai: menempel di tepi layar (kiri untuk pria, kanan untuk wanita) */
+.person { position: relative; }
+.person > *:not(.couple-rose) { position: relative; z-index: 1; }
+.person .couple-rose { top: -6px; height: 300px; opacity: .55; }
+.person .couple-rose.left { left: calc(-1.6rem - 128px); right: auto; transform: scaleX(-1); }
+.person .couple-rose.right { right: calc(-1.6rem - 128px); left: auto; transform: none; }
+
+/* tombol Hadir / Tidak Hadir: dibedakan warna saja */
+.pill.yes span { background: #e6f2e4; color: #2f6f3a; }
+.pill.no span { background: #f8e4e2; color: #a8352b; }
+.pill.yes input:checked + span { background: #3f8a4a; border-color: #3f8a4a; color: #fff; }
+.pill.no input:checked + span { background: #c0392b; border-color: #c0392b; color: #fff; }

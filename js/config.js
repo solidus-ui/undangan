@@ -113,9 +113,13 @@ window.INVITATION = {
 
   /* ---------- KISAH CINTA (hapus isi array untuk menyembunyikan) ---------- */
   loveStory: [
-    { title: "Pernyataan Komitmen", date: "25 Juli 2026", text: "Ceritakan awal komitmen kalian di sini." },
-    { title: "Lamaran", date: "30 Agustus 2026", text: "Dengan restu kedua keluarga, kami melangkah ke jenjang yang lebih serius." },
-    { title: "Pernikahan", date: "24 November 2026", text: "Hari yang kami nantikan, saat dua hati dipersatukan." }
+    { date: "02 Januari 2023", title: "Pertama kali bertemu", text: "Sebagai rekan kerja, berinteraksi selayaknya senior dan junior." },
+    { date: "2023 – 2025", title: "Berjalan sendiri", text: "Kita bertumbuh di jalan masing-masing, menjalani corporate life dan merintis karir dengan passionate." },
+    { date: "Semester I 2026", title: "Definisi Mestakung (semesta mendukung)", text: "Day by day with the blessing from people around us, they set us up. For the first time in his life, di momen Lebaran 2026, Taufik menyampaikan wanita yang ia pilih langsung kedua orang tua untuk mendapat restu dan secara diam-diam mempersiapkan semuanya. Niken absolutely know nothing about it, akan tetapi juga sedang berikhtiar untuk segera dipertemukan dengan jodoh." },
+    { date: "25 Juli 2026", title: "Komitmen", text: "Taufik menyatakan komitmen keseriusan di sebuah kesempatan. He started it strong. Dan ya, Niken yang sudah melihat dan merasakan hal itu, mempersilahkan Taufik untuk bertemu dengan keluarga." },
+    { date: "17 Agustus 2026", title: "Pertemuan dua keluarga", text: "Untuk membicarakan ke jenjang yang lebih serius." },
+    { date: "30 Agustus 2026", title: "Lamaran", text: "Kami memilih dan mengikatkan diri satu sama lain, satu langkah awal untuk saling membersamai." },
+    { date: "24 November 2026", title: "The Wedding", text: "Hari yang kami nantikan, saat dua hati dipersatukan dalam janji suci selamanya." }
   ],
 
   /* ---------- AMPLOP DIGITAL (hapus isi array untuk menyembunyikan) ---------- */

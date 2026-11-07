@@ -100,7 +100,7 @@
 
   /* Mempelai */
   const ROSE = (C.theme.flowerImages && C.theme.flowerImages.stem) || 'assets/flowers/rose-stem.webp';
-  const p = (x, side) => `<div class="person reveal"><div class="photo-wrap"><img class="couple-rose ${side}" src="${esc(ROSE)}" alt="" aria-hidden="true" loading="lazy"><div class="ph person-photo" role="img" aria-label="${esc(x.name)}" data-src="${esc(x.photo)}"></div></div>
+  const p = (x, side) => `<div class="person reveal"><img class="couple-rose ${side}" src="${esc(ROSE)}" alt="" aria-hidden="true" loading="lazy"><div class="photo-wrap"><div class="ph person-photo" role="img" aria-label="${esc(x.name)}" data-src="${esc(x.photo)}"></div></div>
     <h4>${esc(x.name)}</h4><p class="full">${esc(x.fullName)}</p><p class="small">${esc(x.parents)}</p>
     ${x.instagram ? `<a href="${esc(x.instagram)}" target="_blank" rel="noopener">Instagram</a>` : ''}</div>`;
   const [first, second] = C.couple.brideFirst ? [C.couple.bride, C.couple.groom] : [C.couple.groom, C.couple.bride];
