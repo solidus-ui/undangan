@@ -48,7 +48,7 @@ window.INVITATION = {
       "assets/img/galeri-05.jpg",           // IMG_2881
       "assets/img/galeri-06.jpg",           // IMG_2943
       { src: "assets/img/galeri-08.jpg", pos: "center 22%" }, // Bugis 3 (lebar)
-      "assets/img/g-bugis-berdiri.jpg",     // Bugis: berdiri berdua, latar hitam
+      { stack: ["assets/img/g-bugis-tatap.jpg", "assets/img/g-bugis-tangan.jpg"] }, // detail Bugis: tatapan & tangan (warna gelap)
       "assets/img/galeri-09.jpg",           // Bugis 4
       { src: "assets/img/galeri-10.jpg", pos: "center 28%" }  // Bugis 5
     ]
