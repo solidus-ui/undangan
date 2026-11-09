@@ -47,8 +47,8 @@ window.INVITATION = {
       "assets/img/g-prambanan-duduk-lebar.jpg", // Jawa: duduk bersimpuh berdua, Prambanan (lebar)
       "assets/img/galeri-05.jpg",           // IMG_2881
       "assets/img/galeri-06.jpg",           // IMG_2943
-      { src: "assets/img/galeri-07.jpg", pos: "center 30%" }, // Bugis 1 (pos = titik fokus saat dipotong)
-      "assets/img/galeri-08.jpg",           // Bugis 3
+      { src: "assets/img/galeri-08.jpg", pos: "center 22%" }, // Bugis 3 (lebar)
+      "assets/img/g-bugis-berdiri.jpg",     // Bugis: berdiri berdua, latar hitam
       "assets/img/galeri-09.jpg",           // Bugis 4
       { src: "assets/img/galeri-10.jpg", pos: "center 28%" }  // Bugis 5
     ]
