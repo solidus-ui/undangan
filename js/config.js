@@ -13,14 +13,14 @@ window.INVITATION = {
       name: "Niken",                        // nama panggilan
       fullName: "Niken Widowati, S.E.",
       parents: "Anak Bungsu dari Bapak Sunardi (Alm.)\ndan Ibu Roudotus Sa'adah",
-      photo: "assets/img/niken.jpg",
+      photo: "assets/img/niken-2.jpg",
       instagram: ""                         // contoh: "https://instagram.com/niken"
     },
     groom: {
       name: "Taufik",
       fullName: "Andi Muh. Taufik Aprinanda, S.E.",
       parents: "Anak Bungsu dari Bapak Drs. H. Andi Muflihuddin Hamid, M.M.\ndan Ibu Hj. Darmaniah Manaf, S.Sos., M.Si.",
-      photo: "assets/img/taufik.jpg",
+      photo: "assets/img/taufik-2.jpg",
       instagram: ""
     },
     brideFirst: false                       // true = mempelai wanita ditulis duluan
