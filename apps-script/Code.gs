@@ -35,7 +35,7 @@ const SETTINGS = {
     'Tanpa mengurangi rasa hormat, perkenankan kami mengundang Bapak/Ibu/Saudara/i untuk hadir di acara pernikahan kami.\n\n' +
     'Info lengkap acara dapat dilihat melalui tautan berikut:\n{link}\n\n' +
     'Merupakan suatu kebahagiaan bagi kami apabila Bapak/Ibu/Saudara/i berkenan hadir dan memberikan doa restu.\n\n' +
-    'Wassalamu\'alaikum Wr. Wb.\n\nKami yang berbahagia,\n*Niken & Taufik*'
+    'Wassalamu\'alaikum Wr. Wb.\n\nKami yang berbahagia,\n*Taufik & Niken*'
 };
 
 // Pola nama kolom yang dikenali (tidak peka huruf besar/kecil)

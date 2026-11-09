@@ -136,7 +136,7 @@ window.INVITATION = {
   /* ---------- RSVP & UCAPAN (Google Apps Script) ----------
      Tempel URL Web App dari apps-script/Code.gs di sini (lihat PANDUAN.md bagian 3).
      Selama masih kosong, form tetap tampil tetapi ucapan belum tersimpan ke server. */
-  appsScriptUrl: "",
+  appsScriptUrl: "https://script.google.com/macros/s/AKfycbxDqgLM20-WgKEKEHE4yly3XqSbleCuWVfYwAmQZ5MVoZH-RejKzbQgPE2oSBmNjkxX/exec",
 
   /* ---------- EDITOR → GITHUB ----------
      Tombol "Simpan ke GitHub" di mode ?edit=1 menulis js/overrides.js ke repo ini. */
