@@ -15,7 +15,7 @@
 // ===================== PENGATURAN — EDIT DI SINI =====================
 const SETTINGS = {
   // Alamat website undangan di hosting Anda (tanpa tanda ? di akhir)
-  BASE_URL: 'https://ourinvwed.kentau.id/',
+  BASE_URL: 'https://ourwedinv.kentau.id/',
 
   // Nama tab yang berisi daftar tamu (sesuai tab di Sheet Anda)
   GUEST_SHEETS: ['List Undangan', 'Undangan Kantor', 'Undangan Taufik'],
