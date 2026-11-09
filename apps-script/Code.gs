@@ -15,7 +15,7 @@
 // ===================== PENGATURAN — EDIT DI SINI =====================
 const SETTINGS = {
   // Alamat website undangan di hosting Anda (tanpa tanda ? di akhir)
-  BASE_URL: 'https://solidus-ui.github.io/undangan/',
+  BASE_URL: 'https://ourinvwed.kentau.id/',
 
   // Nama tab yang berisi daftar tamu (sesuai tab di Sheet Anda)
   GUEST_SHEETS: ['List Undangan', 'Undangan Kantor', 'Undangan Taufik'],

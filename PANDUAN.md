@@ -150,7 +150,7 @@ versi lama, minta mereka refresh; cache JS/CSS hanya 1 jam.
 
 ## 7. Editor foto & simpan langsung ke GitHub
 
-Buka **https://solidus-ui.github.io/undangan/?edit=1** (tamu tidak melihat editor ini).
+Buka **https://ourinvwed.kentau.id/?edit=1** (tamu tidak melihat editor ini).
 
 - **🎨 Desain**: warna, gaya & ukuran bunga, font.
 - **📷 Foto**: klik foto mana pun → atur **zoom** (slider, tombol −/+, atau scroll mouse) dan **seret** foto untuk menggeser posisinya. Untuk foto cover, klik **Tampilkan cover** dulu. **Reset foto ini** mengembalikan posisi awal.
