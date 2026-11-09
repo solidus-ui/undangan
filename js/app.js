@@ -145,7 +145,21 @@
 
   /* Galeri + lightbox */
   if (C.photos.gallery && C.photos.gallery.length) {
-    $('#galleryGrid').innerHTML = C.photos.gallery.map((g, i) => { const o = typeof g === 'string' ? { src: g } : g; return `<div class="ph gi reveal" role="img" aria-label="Foto galeri ${i + 1}" data-src="${esc(o.src)}"${o.pos ? ` style="background-position:${esc(o.pos)}"` : ''}></div>`; }).join('');
+    // Grid editorial: pola berulang [besar] [detail][detail][detail] [tegak + 2 detail]
+    // Setiap foto bisa dipaksa ukurannya lewat config: { src, size: "besar" | "tegak" | "detail" | "setengah" }
+    const items = C.photos.gallery.map((g) => (typeof g === 'string' ? { src: g } : Object.assign({}, g)));
+    const PATTERN = ['besar', 'detail', 'detail', 'detail', 'tegak', 'samping', 'samping'];
+    items.forEach((o, i) => { o.auto = !o.size; o.size = o.size || PATTERN[i % 7]; });
+    // rapikan sisa di akhir agar tidak ada celah kosong
+    const n = items.length, rest = n % 7, base = n - rest, tail = items.slice(base).filter((o) => o.auto);
+    if (tail.length === items.slice(base).length) {
+      if (rest === 2) items[n - 1].size = 'besar';
+      if (rest === 3) { items[n - 2].size = 'setengah'; items[n - 1].size = 'setengah'; }
+      if (rest === 5) items[n - 1].size = 'besar';
+      if (rest === 6) { items[n - 2].size = 'setengah'; items[n - 1].size = 'setengah'; }
+    }
+    $('#galleryGrid').classList.add('editorial');
+    $('#galleryGrid').innerHTML = items.map((o, i) => `<div class="ph gi reveal g-${o.size === 'samping' ? 'detail' : o.size}" role="img" aria-label="Foto galeri ${i + 1}" data-src="${esc(o.src)}"${o.pos ? ` style="background-position:${esc(o.pos)}"` : ''}></div>`).join('');
     const lb = $('#lightbox');
     $('#galleryGrid').addEventListener('click', (ev) => { const g = ev.target.closest('.gi'); if (g && !document.body.classList.contains('ed-photo')) { lb.querySelector('img').src = g.dataset.src; lb.hidden = false; } });
     lb.addEventListener('click', () => { lb.hidden = true; });

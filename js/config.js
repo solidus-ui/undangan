@@ -40,7 +40,9 @@ window.INVITATION = {
       "assets/img/penutup.jpg",             // Bugis: Niken duduk, Taufik berdiri
       "assets/img/penutup-jawa.jpg"         // Jawa: berdua di Prambanan
     ],
-    gallery: [                              // foto berdua; tambahkan foto Bugis berdua di sini
+    // Galeri pola editorial: urutan ke-1 besar melebar, ke-2..4 detail kotak, ke-5 besar tegak, ke-6..7 detail di sampingnya, lalu berulang.
+    // Bisa dipaksa per foto: { src: "assets/img/x.jpg", size: "besar" | "tegak" | "detail" | "setengah", pos: "center 30%" }
+    gallery: [
       "assets/img/galeri-01.jpg",           // 0Y1A0110
       "assets/img/galeri-02.jpg",           // 0Y1A0144
       "assets/img/galeri-03.jpg",           // 0Y1A0167
