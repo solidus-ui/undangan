@@ -43,7 +43,7 @@ window.INVITATION = {
     gallery: [                              // foto berdua; tambahkan foto Bugis berdua di sini
       "assets/img/galeri-01.jpg",           // 0Y1A0110
       "assets/img/galeri-02.jpg",           // 0Y1A0144
-      "assets/img/galeri-03.jpg",           // 0Y1A0167
+      { stack: ["assets/img/g-cincin-bw.jpg", "assets/img/g-keris-bw.jpg"] }, // detail: cincin & keris (hitam-putih)
       "assets/img/galeri-04.jpg",           // 0Y1A0065
       "assets/img/galeri-05.jpg",           // IMG_2881
       "assets/img/galeri-06.jpg",           // IMG_2943

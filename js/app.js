@@ -145,9 +145,15 @@
 
   /* Galeri + lightbox */
   if (C.photos.gallery && C.photos.gallery.length) {
-    $('#galleryGrid').innerHTML = C.photos.gallery.map((g, i) => { const o = typeof g === 'string' ? { src: g } : g; return `<div class="ph gi reveal" role="img" aria-label="Foto galeri ${i + 1}" data-src="${esc(o.src)}"${o.pos ? ` style="background-position:${esc(o.pos)}"` : ''}></div>`; }).join('');
+    // item bisa berupa { stack: [foto, foto] } = dua foto detail ditumpuk dalam satu slot
+    const cell = (o, cls, label) => `<div class="ph ${cls}" role="img" aria-label="${label}" data-src="${esc(o.src)}"${o.pos ? ` style="background-position:${esc(o.pos)}"` : ''}></div>`;
+    $('#galleryGrid').innerHTML = C.photos.gallery.map((g, i) => {
+      const o = typeof g === 'string' ? { src: g } : g;
+      if (o.stack) return `<div class="gi gi-stack reveal">${o.stack.map((s, k) => cell(typeof s === 'string' ? { src: s } : s, 'gs', `Foto detail ${i + 1}.${k + 1}`)).join('')}</div>`;
+      return cell(o, 'gi reveal', `Foto galeri ${i + 1}`);
+    }).join('');
     const lb = $('#lightbox');
-    $('#galleryGrid').addEventListener('click', (ev) => { const g = ev.target.closest('.gi'); if (g && !document.body.classList.contains('ed-photo')) { lb.querySelector('img').src = g.dataset.src; lb.hidden = false; } });
+    $('#galleryGrid').addEventListener('click', (ev) => { const g = ev.target.closest('.gs') || ev.target.closest('.gi:not(.gi-stack)'); if (g && !document.body.classList.contains('ed-photo')) { lb.querySelector('img').src = g.dataset.src; lb.hidden = false; } });
     lb.addEventListener('click', () => { lb.hidden = true; });
   } else $('#gallery').remove();
 
