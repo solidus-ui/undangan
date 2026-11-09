@@ -45,7 +45,7 @@ window.INVITATION = {
       "assets/img/g-kursi-payung.jpg",      // Jawa: Taufik berpayung, Niken duduk di kursi
       { stack: ["assets/img/g-cincin-bw.jpg", "assets/img/g-keris-bw.jpg"] }, // detail: cincin & keris (hitam-putih)
       "assets/img/galeri-04.jpg",           // 0Y1A0065
-      "assets/img/galeri-05.jpg",           // IMG_2881
+      "assets/img/g-prambanan-duduk.jpg",   // Jawa: duduk bersimpuh berdua, Prambanan
       "assets/img/galeri-06.jpg",           // IMG_2943
       { src: "assets/img/galeri-07.jpg", pos: "center 30%" }, // Bugis 1 (pos = titik fokus saat dipotong)
       "assets/img/galeri-08.jpg",           // Bugis 3
