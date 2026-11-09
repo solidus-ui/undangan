@@ -28,7 +28,7 @@ window.INVITATION = {
 
   /* ---------- FOTO ---------- */
   photos: {
-    cover: "assets/img/cover-2.jpg",        // Prambanan, berdua berdiri di samping meja teh
+    cover: "assets/img/cover-3.jpg",        // Prambanan, berdua berdiri di samping meja teh
     hero: "assets/img/hero.jpg",            // 0Y1A0239 (veil, Prambanan) — dipakai bila heroSlides kosong
     heroSlides: [                           // Save the Date: berganti otomatis (urutan = urutan tampil)
       "assets/img/slide-1.jpg",             // Jawa: berdua di bawah veil, Prambanan
