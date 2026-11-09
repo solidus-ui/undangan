@@ -40,19 +40,17 @@ window.INVITATION = {
       "assets/img/penutup.jpg",             // Bugis: Niken duduk, Taufik berdiri
       "assets/img/penutup-jawa.jpg"         // Jawa: berdua di Prambanan
     ],
-    // Galeri pola editorial: urutan ke-1 besar melebar, ke-2..4 detail kotak, ke-5 besar tegak, ke-6..7 detail di sampingnya, lalu berulang.
-    // Bisa dipaksa per foto: { src: "assets/img/x.jpg", size: "besar" | "tegak" | "detail" | "setengah", pos: "center 30%" }
-    gallery: [
-      { src: "assets/img/g-payung.jpg",   size: "besar" },                      // pembuka: berdua dengan payung
-      { src: "assets/img/g-cincin.jpg",   size: "detail" },                     // detail: tangan & cincin
-      { src: "assets/img/g-keris.jpg",    size: "detail" },                     // detail: keris (hitam-putih)
-      { src: "assets/img/g-langkah.jpg",  size: "detail" },                     // detail: langkah berdua (hitam-putih)
-      { src: "assets/img/galeri-01.jpg",  size: "tegak",    pos: "center 64%" }, // Jawa: kursi & payung, Prambanan
-      { src: "assets/img/galeri-08.jpg",  size: "detail",   pos: "center 30%" }, // Bugis
-      { src: "assets/img/galeri-09.jpg",  size: "detail",   pos: "center 28%" }, // Bugis dengan bunga
-      { src: "assets/img/galeri-05.jpg",  size: "besar",    pos: "center 34%" }, // taman
-      { src: "assets/img/galeri-06.jpg",  size: "setengah" },                   // backdrop bunga
-      { src: "assets/img/galeri-10.jpg",  size: "setengah", pos: "center 28%" }  // Bugis motion blur
+    gallery: [                              // foto berdua; tambahkan foto Bugis berdua di sini
+      "assets/img/galeri-01.jpg",           // 0Y1A0110
+      "assets/img/galeri-02.jpg",           // 0Y1A0144
+      "assets/img/galeri-03.jpg",           // 0Y1A0167
+      "assets/img/galeri-04.jpg",           // 0Y1A0065
+      "assets/img/galeri-05.jpg",           // IMG_2881
+      "assets/img/galeri-06.jpg",           // IMG_2943
+      { src: "assets/img/galeri-07.jpg", pos: "center 30%" }, // Bugis 1 (pos = titik fokus saat dipotong)
+      "assets/img/galeri-08.jpg",           // Bugis 3
+      "assets/img/galeri-09.jpg",           // Bugis 4
+      { src: "assets/img/galeri-10.jpg", pos: "center 28%" }  // Bugis 5
     ]
   },
 
