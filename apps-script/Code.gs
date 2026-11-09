@@ -113,7 +113,7 @@ function doPost(e) {
   if (cache.get(ck)) return json_({ error: 'Terlalu cepat, coba lagi sebentar.' });
   cache.put(ck, '1', 30);
 
-  const tamuLink = clean(data.tamuLink, 120), jumlah = Math.min(20, Math.max(0, Number(data.jumlah) || 1));
+  const tamuLink = clean(data.tamuLink, 120), jumlah = 1; // dihitung 1 per link undangan
   const lock = LockService.getScriptLock(); lock.waitLock(10000);
   let tercatat = '';
   try {

@@ -205,8 +205,6 @@
     renderWishes();
   }
   $('#wishMore').addEventListener('click', () => { shown += PAGE; renderWishes(); });
-  // pilihan jumlah hanya muncul jika memilih Hadir
-  $('#rsvpForm').addEventListener('change', (e) => { if (e.target.name === 'hadir') $('#jumlahWrap').hidden = e.target.value !== 'Hadir'; });
   $('#rsvpForm').addEventListener('submit', async (ev) => {
     ev.preventDefault();
     const form = ev.target, msg = $('#formMsg');
@@ -215,7 +213,7 @@
     if (!fd.nama) { msg.textContent = 'Mohon isi nama Anda.'; msg.className = 'form-msg err'; $('#fNama').focus(); return; }
     if (!fd.ucapan) { msg.textContent = 'Mohon tulis ucapan dan doa Anda.'; msg.className = 'form-msg err'; $('#fUcapan').focus(); return; }
     if (!fd.hadir) { msg.textContent = 'Mohon pilih Hadir atau Tidak Hadir.'; msg.className = 'form-msg err'; return; }
-    fd.action = 'rsvp'; fd.acara = eventCode || 'semua'; fd.tamuLink = guest; fd.jumlah = fd.hadir === 'Hadir' ? Number(fd.jumlah) || 1 : 0;
+    fd.action = 'rsvp'; fd.acara = eventCode || 'semua'; fd.tamuLink = guest; fd.jumlah = fd.hadir === 'Hadir' ? 1 : 0; // dihitung 1 per link
     const btn = form.querySelector('.send'); btn.disabled = true;
     msg.textContent = 'Mengirim…'; msg.className = 'form-msg';
     const now = new Date();
