@@ -50,7 +50,7 @@ window.INVITATION = {
       { src: "assets/img/galeri-08.jpg", pos: "center 22%" }, // Bugis 3 (lebar)
       { stack: ["assets/img/g-bugis-tatap.jpg", "assets/img/g-bugis-tangan.jpg"] }, // detail Bugis: tatapan & tangan (warna gelap)
       "assets/img/galeri-09.jpg",           // Bugis 4
-      { src: "assets/img/galeri-10.jpg", pos: "center 28%" }  // Bugis 5
+      { src: "assets/img/galeri-10-c.jpg", pos: "center 31%" }  // Bugis 5 (pasangan di tengah)
     ]
   },
 
