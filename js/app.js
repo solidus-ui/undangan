@@ -188,7 +188,7 @@
   const PAGE = 10; let wishes = [], shown = PAGE;
   const AVATAR = '<span class="avatar" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="12" cy="8.5" r="4.2" fill="currentColor"/><path d="M3.8 21a8.2 8.2 0 0 1 16.4 0Z" fill="currentColor"/></svg></span>';
   function renderWishes() {
-    $('#cntHadir').textContent = wishes.filter((w) => w.hadir === 'Hadir').length;
+    $('#cntHadir').textContent = wishes.filter((w) => w.hadir === 'Hadir').length;  // jumlah kiriman berstatus Hadir
     $('#cntTidak').textContent = wishes.filter((w) => w.hadir === 'Tidak Hadir').length;
     $('#wishList').innerHTML = wishes.length
       ? wishes.slice(0, shown).map((w) => `<li>${AVATAR}<div><p class="who">${esc(w.nama)}${w.hadir ? ` <span class="tag ${w.hadir === 'Hadir' ? 'yes' : 'no'}">${esc(w.hadir)}</span>` : ''}</p><p class="meta">${esc(w.waktu)}</p><p class="msg">${esc(w.ucapan)}</p></div></li>`).join('')
@@ -205,6 +205,8 @@
     renderWishes();
   }
   $('#wishMore').addEventListener('click', () => { shown += PAGE; renderWishes(); });
+  // pilihan jumlah hanya muncul jika memilih Hadir
+  $('#rsvpForm').addEventListener('change', (e) => { if (e.target.name === 'hadir') $('#jumlahWrap').hidden = e.target.value !== 'Hadir'; });
   $('#rsvpForm').addEventListener('submit', async (ev) => {
     ev.preventDefault();
     const form = ev.target, msg = $('#formMsg');
@@ -213,7 +215,7 @@
     if (!fd.nama) { msg.textContent = 'Mohon isi nama Anda.'; msg.className = 'form-msg err'; $('#fNama').focus(); return; }
     if (!fd.ucapan) { msg.textContent = 'Mohon tulis ucapan dan doa Anda.'; msg.className = 'form-msg err'; $('#fUcapan').focus(); return; }
     if (!fd.hadir) { msg.textContent = 'Mohon pilih Hadir atau Tidak Hadir.'; msg.className = 'form-msg err'; return; }
-    fd.action = 'rsvp'; fd.acara = eventCode || 'semua'; fd.tamuLink = guest; fd.jumlah = 1;
+    fd.action = 'rsvp'; fd.acara = eventCode || 'semua'; fd.tamuLink = guest; fd.jumlah = fd.hadir === 'Hadir' ? Number(fd.jumlah) || 1 : 0;
     const btn = form.querySelector('.send'); btn.disabled = true;
     msg.textContent = 'Mengirim…'; msg.className = 'form-msg';
     const now = new Date();

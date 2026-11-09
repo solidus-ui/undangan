@@ -41,10 +41,14 @@ const SETTINGS = {
 // Pola nama kolom yang dikenali (tidak peka huruf besar/kecil)
 const COLS = {
   nama:  /^(nama|nama tamu|name|tamu)\b/i,
-  wa:    /(wa|whatsapp|no\.?\s*hp|hp|telp|telepon|phone|kontak)/i,
+  wa:    /^(no\.?\s*)?(wa|whatsapp|hp|telp|telepon|phone|kontak)\b/i,
   acara: /^(acara|lokasi|kota|sesi|event)\b/i,
   link:  /^link undangan$/i,
-  walink:/^link whatsapp$/i
+  walink:/^link whatsapp$/i,
+  rsvp:  /^(rsvp|kehadiran|konfirmasi)\b/i,
+  hadirN:/^jumlah hadir/i,
+  ucapan:/^(ucapan terakhir|catatan rsvp)/i,
+  waktu: /^waktu rsvp/i
 };
 
 // ===================== MENU DI GOOGLE SHEET =====================
@@ -109,11 +113,33 @@ function doPost(e) {
   if (cache.get(ck)) return json_({ error: 'Terlalu cepat, coba lagi sebentar.' });
   cache.put(ck, '1', 30);
 
+  const tamuLink = clean(data.tamuLink, 120), jumlah = Math.min(20, Math.max(0, Number(data.jumlah) || 1));
   const lock = LockService.getScriptLock(); lock.waitLock(10000);
+  let tercatat = '';
   try {
-    getRsvpSheet_().appendRow([new Date(), nama, hadir, Number(data.jumlah) || 1, ucapan, clean(data.acara, 30), clean(data.tamuLink, 80)]);
+    // 1) Riwayat: SEMUA kiriman disimpan (tidak pernah ditimpa) di tab "Ucapan"
+    getRsvpSheet_().appendRow([new Date(), nama, hadir, hadir === 'Hadir' ? jumlah : 0, ucapan, clean(data.acara, 30), tamuLink]);
+    // 2) Status terbaru per link: tulis ke baris tamu yang namanya sama dengan ?to= di link
+    if (tamuLink) tercatat = updateGuestRsvp_(tamuLink, hadir, hadir === 'Hadir' ? jumlah : 0);
   } finally { lock.releaseLock(); }
-  return json_({ ok: true });
+  return json_({ ok: true, tercatat: tercatat });
+}
+
+/** Cari baris tamu (kolom "Nama Tamu") yang sama dengan nama di link, lalu isi kolom RSVP & Jumlah Hadir. */
+function updateGuestRsvp_(tamuLink, hadir, jumlah) {
+  const ss = SpreadsheetApp.getActive(), key = tamuLink.toLowerCase().replace(/\s+/g, ' ').trim();
+  for (let i = 0; i < SETTINGS.GUEST_SHEETS.length; i++) {
+    const name = SETTINGS.GUEST_SHEETS[i], sh = ss.getSheetByName(name);
+    if (!sh) continue;
+    const info = readGuestSheet_(sh); if (!info) continue;
+    const g = info.guests.filter(function (x) { return x.nama.toLowerCase().replace(/\s+/g, ' ').trim() === key; })[0];
+    if (!g) continue;
+    if (info.cols.rsvp != null && hadir) sh.getRange(g.row, info.cols.rsvp + 1).setValue(hadir);
+    if (info.cols.hadirN != null) sh.getRange(g.row, info.cols.hadirN + 1).setValue(jumlah);
+    if (info.cols.waktu != null) sh.getRange(g.row, info.cols.waktu + 1).setValue(new Date());
+    return name + '!' + g.row;
+  }
+  return '';
 }
 
 // ===================== FUNGSI BANTU =====================
@@ -146,6 +172,9 @@ function readGuestSheet_(sh) {
         else if (cols.link == null && COLS.link.test(v)) cols.link = c;
         else if (cols.walink == null && COLS.walink.test(v)) cols.walink = c;
         else if (cols.acara == null && COLS.acara.test(v)) cols.acara = c;
+        else if (cols.rsvp == null && COLS.rsvp.test(v)) cols.rsvp = c;
+        else if (cols.hadirN == null && COLS.hadirN.test(v)) cols.hadirN = c;
+        else if (cols.waktu == null && COLS.waktu.test(v)) cols.waktu = c;
         else if (cols.wa == null && COLS.wa.test(v)) cols.wa = c;
       });
       break;
@@ -182,7 +211,7 @@ function getRsvpSheet_() {
   let sh = ss.getSheetByName(SETTINGS.RSVP_SHEET);
   if (!sh) {
     sh = ss.insertSheet(SETTINGS.RSVP_SHEET);
-    sh.appendRow(['Waktu', 'Nama', 'Kehadiran', 'Jumlah', 'Ucapan', 'Acara', 'Nama di Link']);
+    sh.appendRow(['Waktu', 'Nama', 'Kehadiran', 'Jumlah Hadir', 'Ucapan', 'Acara', 'Nama di Link']);
     sh.getRange(1, 1, 1, 7).setFontWeight('bold');
     sh.setFrozenRows(1);
   }
@@ -194,7 +223,7 @@ function listWishes_() {
   if (n < 2) return [];
   const rows = sh.getRange(2, 1, n - 1, 5).getValues();
   const tz = Session.getScriptTimeZone();
-  return rows.reverse().slice(0, 300).map(function (r) {
-    return { waktu: Utilities.formatDate(new Date(r[0]), tz, 'dd-MM-yyyy HH:mm'), nama: r[1], hadir: r[2], ucapan: r[4] };
+  return rows.reverse().slice(0, 1000).map(function (r) {
+    return { waktu: Utilities.formatDate(new Date(r[0]), tz, 'dd-MM-yyyy HH:mm'), nama: r[1], hadir: r[2], jumlah: r[3], ucapan: r[4] };
   });
 }
