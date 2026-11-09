@@ -50,7 +50,7 @@ window.INVITATION = {
       { src: "assets/img/galeri-01.jpg",  size: "tegak",    pos: "center 64%" }, // Jawa: kursi & payung, Prambanan
       { src: "assets/img/galeri-08.jpg",  size: "detail",   pos: "center 30%" }, // Bugis
       { src: "assets/img/galeri-09.jpg",  size: "detail",   pos: "center 28%" }, // Bugis dengan bunga
-      { src: "assets/img/galeri-05.jpg",  size: "besar",    pos: "center 14%" }, // taman
+      { src: "assets/img/galeri-05.jpg",  size: "besar",    pos: "center 34%" }, // taman
       { src: "assets/img/galeri-06.jpg",  size: "setengah" },                   // backdrop bunga
       { src: "assets/img/galeri-10.jpg",  size: "setengah", pos: "center 28%" }  // Bugis motion blur
     ]
