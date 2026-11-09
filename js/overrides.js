@@ -22,11 +22,6 @@ window.INVITATION_OVERRIDES = {
       "x": 76.7,
       "y": 55.6
     },
-    "assets/img/galeri-05.jpg": {
-      "z": 1.25,
-      "x": 8.3,
-      "y": 97.4
-    },
     "assets/img/galeri-06.jpg": {
       "z": 1.45,
       "x": 22,
