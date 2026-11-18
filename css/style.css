@@ -372,3 +372,7 @@ body.has-nav .music-btn { bottom: calc(76px + env(safe-area-inset-bottom, 0px));
 
 .form .jumlah { display: flex; align-items: center; justify-content: space-between; gap: .6rem; font-size: .9rem; }
 .form .jumlah select { font: inherit; padding: .5rem .8rem; border-radius: 10px; border: 0; background: #fff; color: #2b2224; }
+
+/* Label hitung mundur berurutan (Menuju Akad Nikah → Resepsi Malang → Resepsi Makassar) */
+.cd-label { font-family: var(--f-head); font-style: italic; font-size: 1.15rem; color: var(--primary); text-align: center; margin: .6rem 0 -.3rem; letter-spacing: .02em; position: relative; z-index: 2; min-height: 1.4em; }
+.countdown.cd-done div { opacity: .55; }

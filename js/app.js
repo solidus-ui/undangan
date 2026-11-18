@@ -133,15 +133,33 @@
   }
 
   /* Hitung mundur */
-  const target = new Date(C.countdownDate || (shownEvents[0] && shownEvents[0].date)).getTime();
+  // Berurutan: begitu satu acara dimulai, otomatis pindah ke acara berikutnya
+  // (Akad → Resepsi Malang → Resepsi Makassar). Ikut filter ?a= pada link tamu.
+  const cdTargets = (C.countdownDate ? [{ title: '', date: C.countdownDate }] : shownEvents)
+    .map((e) => ({ title: e.title, t: new Date(e.date).getTime() }))
+    .filter((e) => !isNaN(e.t))
+    .sort((a, b) => a.t - b.t);
+  const cdLabel = $('#cdLabel');
+  let cdTimer = null, cdLast = null;
   function tick() {
-    let d = Math.max(0, target - Date.now()) / 1000;
+    const now = Date.now();
+    const next = cdTargets.find((e) => e.t > now);
+    if (!next) {
+      // semua acara sudah dimulai
+      $('#countdown').classList.add('cd-done');
+      if (cdLabel) cdLabel.textContent = 'Alhamdulillah, hari bahagia telah tiba';
+      ['#cdD', '#cdH', '#cdM', '#cdS'].forEach((s) => { $(s).textContent = 0; });
+      clearInterval(cdTimer);
+      return;
+    }
+    if (cdLabel && cdLast !== next) { cdLabel.textContent = next.title ? 'Menuju ' + next.title : ''; cdLast = next; }
+    let d = (next.t - now) / 1000;
     $('#cdD').textContent = Math.floor(d / 86400); d %= 86400;
     $('#cdH').textContent = Math.floor(d / 3600); d %= 3600;
     $('#cdM').textContent = Math.floor(d / 60);
     $('#cdS').textContent = Math.floor(d % 60);
   }
-  if (!isNaN(target)) { tick(); setInterval(tick, 1000); } else $('#countdown').remove();
+  if (cdTargets.length) { cdTimer = setInterval(tick, 1000); tick(); } else { $('#countdown').remove(); if (cdLabel) cdLabel.remove(); }
 
   /* Galeri + lightbox */
   if (C.photos.gallery && C.photos.gallery.length) {
