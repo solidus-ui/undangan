@@ -134,8 +134,8 @@
 
   /* Hitung mundur */
   // Berurutan: begitu satu acara dimulai, otomatis pindah ke acara berikutnya
-  // (Akad → Resepsi Malang → Resepsi Makassar). Ikut filter ?a= pada link tamu.
-  const cdTargets = (C.countdownDate ? [{ title: '', date: C.countdownDate }] : shownEvents)
+  // (Akad → Resepsi Malang → Resepsi Makassar). Sama untuk SEMUA tamu, tidak ikut filter ?a=.
+  const cdTargets = (C.countdownDate ? [{ title: '', date: C.countdownDate }] : C.events)
     .map((e) => ({ title: e.title, t: new Date(e.date).getTime() }))
     .filter((e) => !isNaN(e.t))
     .sort((a, b) => a.t - b.t);
