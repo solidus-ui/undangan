@@ -13,8 +13,9 @@
   /* ---------- Tamu dari link: ?to=Nama+Tamu&a=malang ---------- */
   const guest = (params.get('to') || '').trim().slice(0, 80);
   const eventCode = (params.get('a') || '').trim().toLowerCase();
-  const events = C.events.filter((e) => !eventCode || eventCode === 'semua' || e.id === eventCode);
-  const shownEvents = events.length ? events : C.events;
+  // Semua tamu melihat ketiga acara (Akad, Resepsi Malang, Resepsi Makassar) apa pun link-nya.
+  // ?a= hanya dicatat di RSVP sebagai keterangan, tidak lagi menyaring kartu acara.
+  const shownEvents = C.events;
 
   /* ---------- Tema ---------- */
   function applyTheme(t) {
